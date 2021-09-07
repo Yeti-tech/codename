@@ -17,36 +17,36 @@ use yii\db\ActiveRecord;
 class ColourPattern extends ActiveRecord
 {
 
-    private const PATTERN = ['red', 'black', 'blue'];
-    private $teamcolour;
+    private const PATTERN = ['red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'black', 'blue',
+        'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'gray', 'gray', 'gray',
+        'gray', 'gray', 'gray', 'gray'];
+
+    private const PATTERN_2 = ['red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'black', 'blue',
+            'blue', 'blue', 'blue', 'red', 'blue', 'blue', 'blue', 'blue', 'gray', 'gray', 'gray',
+            'gray', 'gray', 'gray', 'gray'];
+
+    private $fieldColour;
     private $uni;
 
-    public function __construct(string $colour, $id, $config = [])
+
+    public function __construct(string $colour, string $id, $config = [])
     {
-        $this->teamcolour = $colour;
+        $this->fieldColour = $colour;
         $this->uni = $id;
         parent::__construct($config);
     }
 
- //   public function beforeSave($insert): bool
-  //  {
-  //      $this->field_id = $this->getUni();
-   //     $this->colour = $this->getTeamcolour();
-
-    //    return parent::beforeSave($insert);
-   // }
-
-     public function beforeSave($insert): bool
-     {
-       $this->setAttribute('colour', $this->teamcolour);
-       $this->setAttribute('field_id', $this->uni);
-
-       return parent::beforeSave($insert);
-      }
-
-    public function getTeamcolour(): string
+    public function beforeSave($insert): bool
     {
-        return $this->teamcolour;
+        $this->setAttribute('colour', $this->fieldColour);
+        $this->setAttribute('field_id', $this->uni);
+
+        return parent::beforeSave($insert);
+    }
+
+    public function getFieldColour(): string
+    {
+        return $this->fieldColour;
     }
 
     public function getUni(): string
@@ -54,33 +54,17 @@ class ColourPattern extends ActiveRecord
         return $this->uni;
     }
 
-    public static function newColourField($colour, $uni_id)
-    {
-        $pattern = new ColourPattern($colour, 'another_stroka');
-        $pattern->beforeSave(true);
-        $pattern->save();
-    }
-
     public static function fillPattern(array $uni_ids): void
     {
-        echo '<pre>';
-        var_dump($uni_ids);
-        echo '</pre>';
-        //$i = 0;
-       // while ($i < 20)
-        // {
-       // foreach($uni_ids as $id) {
-        //    $pattern = new ColourPattern(self::PATTERN[$i], $uni_ids[$i]);
-          //  $pattern->beforeSave(true);
-          //  $pattern->save();
-         //   $i++;
-       // }
-    }
 
+        $colours = self::PATTERN;
+        shuffle($colours);
 
-    public function getElemValue($id)
-    {
-        echo 'fff';
+        for ($i = 0; $i <= 25; $i++) {
+            $pattern = new ColourPattern($colours[$i], $uni_ids[$i]);
+            $pattern->beforeSave(true);
+            $pattern->save();
+        }
     }
 
 
@@ -108,4 +92,12 @@ class ColourPattern extends ActiveRecord
             'field_id' => 'Field ID',
         ];
     }
+
+    //   public function beforeSave($insert): bool
+    //  {
+    //      $this->field_id = $this->getUni();
+    //     $this->colour = $this->getTeamcolour();
+
+    //    return parent::beforeSave($insert);
+    // }
 }

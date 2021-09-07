@@ -65,7 +65,7 @@ class Wordfield extends Field
     {
         $cardValues = self::find()->select(['word', 'uni_id'])->All();
         return array_rand(array_flip(ArrayHelper::getColumn
-        ($cardValues, 'word')), 20);
+        ($cardValues, 'word')), 25);
     }
 
 

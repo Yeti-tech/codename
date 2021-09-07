@@ -4,27 +4,22 @@ namespace app\controllers;
 
 use app\models\field\Field;
 use app\models\field\Game;
+use app\models\field\pattern\ColourPattern;
 use app\models\field\Wordfield;
-use yii\data\ActiveDataProvider;
 
 
 class GameController extends \yii\web\Controller
 
 {
 
-    public function actionFillWordFieldTable()
-    {
-        //new WordField()
-    }
-
-
     public function actionPattern()
     {
-        Game::getPattern();
+       $array = Game::getPattern();
+       ColourPattern::fillPattern($array, $player);
     }
 
 
-    public function actionGamestart(): void
+    public function actionGameStart(): void
     {
         Field::gamestart();
     }

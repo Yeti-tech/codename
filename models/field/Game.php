@@ -35,11 +35,10 @@ class Game extends Field
     }
 
 
-    public static function getPattern(): void
+    public static function getPattern(): array
     {
         $uni_ids = self::find()->select(['uni_id'])->All();
-        $uni_ids = ArrayHelper::getColumn($uni_ids, 'uni_id');
-        ColourPattern::fillPattern($uni_ids);
+        return ArrayHelper::getColumn($uni_ids, 'uni_id');
     }
 
     public static function instance($refresh = false): self
