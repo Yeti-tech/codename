@@ -4,6 +4,7 @@ namespace app\models\pattern;
 
 use app\models\field\Game;
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "pattern".
@@ -12,17 +13,28 @@ use Yii;
  * @property string $colour
  * @property int|null $field_id
  */
-class ColourPattern extends Pattern
+class ColourPattern extends ActiveRecord
 {
 
     private const PATTERN = ['red', 'black', 'blue'];
-
+    private $teamcolor;
+    private $uni;
 
     public function __construct(string $colour, $id, $config = [])
     {
-        $this->colour = $colour;
-        $this->field_id = $id;
+        $this->teamcolor = $colour;
+        $this->uni = $id;
         parent::__construct($config);
+    }
+
+    public function getTeamcolour(): string
+    {
+        return $this->colour;
+    }
+
+    public function getUni(): string
+    {
+        return $this->field_id;
     }
 
 
