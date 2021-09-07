@@ -3,6 +3,7 @@
 
 namespace app\controllers;
 
+use app\models\field\Field;
 use app\models\field\Wordfield;
 use Ramsey\Uuid\Uuid;
 use Yii;
@@ -18,23 +19,25 @@ class WordfieldController extends \yii\web\Controller
         //new WordField()
     }
 
-    public function actionNew(): void
+    public function newWordFields($card_value)
     {
         $uni_id = Uuid::uuid4()->toString();
-        if (\Yii::$app->request->isPost) {
-            $request = Yii::$app->request;
-            $word = $request->getBodyParam("word");
-            var_dump($word);
-           // $artist->number = $param["number"];
-        }
-        $newWordField = new Wordfield($uni_id, $word);
-        var_dump($newWordField);
+        $newWordField = new Wordfield($uni_id, $card_value);
         $newWordField->save();
     }
 
+
     public function actionFill()
     {
-        $res = Wordfield::find()->All();
-        //var_dump($res);
+
+        $res = Wordfield::fillgame();
+        echo '<pre>';
+        var_dump($res);
+        echo '</pre>';
+    }
+
+    public function actionGamestart(): void
+    {
+        Field::gamestart();
     }
 }

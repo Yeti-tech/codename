@@ -2,6 +2,7 @@
 
 namespace app\models\pattern;
 
+use app\models\field\Game;
 use Yii;
 
 /**
@@ -13,7 +14,7 @@ use Yii;
  */
 class ColourPattern extends Pattern
 {
-    private $colour;
+
     private const PATTERN = ['red', 'black', 'blue'];
 
 
@@ -24,7 +25,8 @@ class ColourPattern extends Pattern
         parent::__construct($config);
     }
 
-    public static function fillPattern(array $field_ids): void
+
+    public static function fillPattern(array $field_ids): array
     {
         $i = 0;
         while($i<20) {

@@ -2,10 +2,9 @@
 
 namespace app\models\field;
 
-use app\models\field\Game;
+use Ramsey\Uuid\Uuid;
 use ReflectionClass;
-use Yii;
-use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "wordfield".
@@ -16,12 +15,25 @@ use yii\db\ActiveRecord;
  */
 class Wordfield extends Field
 {
-    public function __construct($uni_id, $word, $config = [])
+    public function __construct(string $uni_id, string $word, $config = [])
     {
         $this->uni_id = $uni_id;
         $this->word = $word;
         parent::__construct($config);
     }
+
+    public function newWordField($card_value)
+    {
+        $uni_id = Uuid::uuid4()->toString();
+        $newWordField = new Wordfield($uni_id, $card_value);
+        $newWordField->save();
+    }
+
+    /**
+     * 'Instance' and 'Instantiate' allows using static functions of the class without
+     * having to call constructor, returns instance of the class
+     * @return Wordfield
+     */
 
     public static function instance($refresh = false): self
     {
@@ -38,17 +50,17 @@ class Wordfield extends Field
     }
 
 
-    public static function fill()
-    {
-        $res = self::find()->select(['uni_id'])->All();
-        var_dump($res);
-       // $res = self::find()->All();
-        // select rand from table, select its value and id, and send it to new(child);
-    }
+    /**
+     * Selects 20 random records from table 'wordfield',
+     * selects their value and id, and sends it to ancestor for further use in the game;
+     * @return array
+     */
 
-    public function getPattern(): array
+    public static function fillCardValues(): array
     {
-        return Game::getFieldIds();
+        $cardValues = self::find()->select(['word', 'uni_id'])->All();
+        return array_rand(array_flip(ArrayHelper::getColumn
+        ($cardValues, 'word')), 20);
     }
 
 

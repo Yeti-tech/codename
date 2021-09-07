@@ -1,34 +1,61 @@
 <?php
 
-
 namespace app\models\field;
 
-use app\models\field\AbstractField;
-use app\models\field\Wordfield;
-use Yii;
+use app\models\pattern\ColourPattern;
+use Ramsey\Uuid\Uuid;
+use ReflectionClass;
+
 
 /**
  * This is the model class for table "game".
  *
  * @property int $id
  * @property string $word
+ * @property string $uni_id
  */
-class Game extends Wordfield
+class Game extends Field
 {
 
-    private $id;
-    private $word;
-
-  //  public function __construct(int $id, string $word, $config = [])
-  //  {
-   //     $this->id = $id;
-    //    $this->word = $word;
-    //    parent::__construct($config);
-   // }
-
-    public static function getFieldIds() : array
+    public function __construct(string $uni_id, string $word, $config = [])
     {
-        return self::find()->select(['id'])->All();
+        $this->uni_id = $uni_id;
+        $this->word = $word;
+        parent::__construct($config);
+    }
+
+    public static function fillGameTable($card_values): void
+    {
+        foreach ($card_values as $card_value) {
+            $uni_id = Uuid::uuid4()->toString();
+            $gameField = new Game ($uni_id, $card_value);
+            $gameField->save();
+        }
+    }
+
+    public static function fillPattern($uni_ids): array
+    {
+        return ColourPattern::fillPattern($uni_ids);
+    }
+
+    public static function getPattern(): array
+    {
+        $uni_ids = self::find()->select(['uni_id'])->All();
+        return self::fillPattern($uni_ids);
+    }
+
+    public static function instance($refresh = false): self
+    {
+        return self::instantiate([]);
+    }
+
+    public static function instantiate($row)
+    {
+        $class = static::class;
+        $object = new ReflectionClass($class);
+        $object = $object->newInstanceWithoutConstructor();
+        $object->init();
+        return $object;
     }
 
     public static function tableName(): string
@@ -53,4 +80,5 @@ class Game extends Wordfield
             'word' => 'Word',
         ];
     }
+
 }
