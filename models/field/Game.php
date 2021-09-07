@@ -2,9 +2,10 @@
 
 namespace app\models\field;
 
-use app\models\pattern\ColourPattern;
+use app\models\field\pattern\ColourPattern;
 use Ramsey\Uuid\Uuid;
 use ReflectionClass;
+use yii\helpers\ArrayHelper;
 
 
 /**
@@ -33,15 +34,12 @@ class Game extends Field
         }
     }
 
-    public static function fillPattern($uni_ids): array
-    {
-        return ColourPattern::fillPattern($uni_ids);
-    }
 
-    public static function getPattern(): array
+    public static function getPattern(): void
     {
         $uni_ids = self::find()->select(['uni_id'])->All();
-        return self::fillPattern($uni_ids);
+        $uni_ids = ArrayHelper::getColumn($uni_ids, 'uni_id');
+        ColourPattern::fillPattern($uni_ids);
     }
 
     public static function instance($refresh = false): self

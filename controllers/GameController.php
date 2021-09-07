@@ -17,26 +17,16 @@ class GameController extends \yii\web\Controller
         //new WordField()
     }
 
-    public function actionNew(): void
-    {
-        $newWordField = new Wordfield('fire');
-        var_dump($newWordField);
-        $newWordField->save();
-    }
 
-    public function actionFillWordField()
-    {
-        $res = Wordfield::find()->All();
-       //var_dump($res);
-    }
-
-   // public function actionGamestart(): void
-   // {
-   //     Field::gamestart();
-   // }
-
-    public function actionGet (): void
+    public function actionPattern()
     {
         Game::getPattern();
     }
+
+
+    public function actionGamestart(): void
+    {
+        Field::gamestart();
+    }
+
 }

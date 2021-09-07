@@ -40,6 +40,11 @@ class Wordfield extends Field
         return self::instantiate([]);
     }
 
+    public static function getPattern()
+    {
+       echo 'gh';
+    }
+
     public static function instantiate($row)
     {
         $class = static::class;

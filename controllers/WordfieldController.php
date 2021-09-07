@@ -4,10 +4,9 @@
 namespace app\controllers;
 
 use app\models\field\Field;
+use app\models\field\Game;
 use app\models\field\Wordfield;
 use Ramsey\Uuid\Uuid;
-use Yii;
-use yii\data\ActiveDataProvider;
 
 
 class WordfieldController extends \yii\web\Controller
@@ -27,13 +26,9 @@ class WordfieldController extends \yii\web\Controller
     }
 
 
-    public function actionFill()
+    public function actionPattern()
     {
-
-        $res = Wordfield::fillgame();
-        echo '<pre>';
-        var_dump($res);
-        echo '</pre>';
+        Game::getPattern();
     }
 
     public function actionGamestart(): void
