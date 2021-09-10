@@ -40,11 +40,6 @@ class Wordfield extends Field
         return self::instantiate([]);
     }
 
-    public static function getPattern()
-    {
-       echo 'gh';
-    }
-
     public static function instantiate($row)
     {
         $class = static::class;
@@ -52,6 +47,12 @@ class Wordfield extends Field
         $object = $object->newInstanceWithoutConstructor();
         $object->init();
         return $object;
+    }
+
+
+    public static function getPattern()
+    {
+        echo 'gh';
     }
 
 
