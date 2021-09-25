@@ -5,12 +5,9 @@ namespace app\models\field;
 abstract class Field extends \yii\db\ActiveRecord
 {
 
-    public $firstTeam;
-    public $secondTeam;
-
     public static function gameStart(): bool
     {
-        $card_values = Wordfield::fillCardValues();
+        $card_values = WordCard::fillCardValues();
         Game::fillGameTable($card_values);
         return true;
     }

@@ -47,8 +47,8 @@ class ColourPattern extends ActiveRecord
 
     public function afterFind(): void
     {
-        $this->colour = $this->fieldColour;
-        $this->field_id = $this->uniId;
+        $this->fieldColour = $this->colour;
+        $this->uniId = $this->field_id;
 
         parent::afterFind();
     }
@@ -123,12 +123,4 @@ class ColourPattern extends ActiveRecord
             'field_id' => 'Field ID',
         ];
     }
-
-    //   public function beforeSave($insert): bool
-    //  {
-    //      $this->field_id = $this->getUni();
-    //     $this->colour = $this->getTeamcolour();
-
-    //    return parent::beforeSave($insert);
-    // }
 }

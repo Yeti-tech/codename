@@ -2,7 +2,6 @@
 
 namespace app\models\field;
 
-use app\models\field\pattern\ColourPattern;
 use Ramsey\Uuid\Uuid;
 use ReflectionClass;
 use yii\helpers\ArrayHelper;
@@ -14,6 +13,7 @@ use yii\helpers\ArrayHelper;
  * @property int $id
  * @property string $word
  * @property string $uni_id
+ * @property string $deactivated
  */
 class Game extends Field
 {

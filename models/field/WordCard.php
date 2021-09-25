@@ -4,16 +4,17 @@ namespace app\models\field;
 
 use Ramsey\Uuid\Uuid;
 use ReflectionClass;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
- * This is the model class for table "wordfield".
+ * This is the model class for table "wordCard".
  *
  * @property int $id
  * @property string $word
  * @property string $uni_id
  */
-class Wordfield extends Field
+class WordCard extends ActiveRecord
 {
     public function __construct(string $uni_id, string $word, $config = [])
     {
@@ -22,17 +23,25 @@ class Wordfield extends Field
         parent::__construct($config);
     }
 
-    public function newWordField($card_value)
+    public function newWordCard($card_value): void
     {
         $uni_id = Uuid::uuid4()->toString();
-        $newWordField = new Wordfield($uni_id, $card_value);
+        $newWordField = new WordCard($uni_id, $card_value);
         $newWordField->save();
+    }
+
+    public static function gameStart(): bool
+    {
+        $card_values = WordCard::fillCardValues();
+        Game::fillGameTable($card_values);
+        return true;
     }
 
     /**
      * 'Instance' and 'Instantiate' allows using static functions of the class without
      * having to call constructor, returns instance of the class
-     * @return Wordfield
+     * @param bool $refresh
+     * @return WordCard
      */
 
     public static function instance($refresh = false): self
@@ -50,29 +59,22 @@ class Wordfield extends Field
     }
 
 
-    public static function getPattern()
-    {
-        echo 'gh';
-    }
-
-
     /**
-     * Selects 20 random records from table 'wordfield',
+     * Selects 20 random records from table 'wordCard',
      * selects their value and id, and sends it to ancestor for further use in the game;
      * @return array
      */
 
     public static function fillCardValues(): array
     {
-        $cardValues = self::find()->select(['word', 'uni_id'])->All();
+        $cardValues = self::find()->select(['word', 'uni_id'])->all();
         return array_rand(array_flip(ArrayHelper::getColumn
         ($cardValues, 'word')), 25);
     }
 
-
     public static function tableName(): string
     {
-        return 'wordfield';
+        return 'wordCard';
     }
 
 
