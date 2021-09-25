@@ -1,8 +1,6 @@
 <?php
 
-use yii\helpers\Html;
-
-/** @var app\models\field\Game $gameCards */
+/** @var app\models\game\GameCard $gameCards */
 /** @var string $word */
 /** @var string $uni_id */
 

@@ -2,19 +2,19 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\models\field\Wordfield;
+use app\models\game\WordCard;
 
-/** @var Wordfield $wordfield */
+/** @var WordCard $wordCard */
 
 ?>
 
 <?php
 $form = ActiveForm::begin([
-    'id' => 'wordfield',
+    'id' => 'wordCard',
     'options' => ['class' => 'form-horizontal'],
 ]) ?>
 <br>
-<?= $form->field($wordfield, 'word')->input('string') ?>
+<?= $form->field($wordCard, 'word')->input('string') ?>
 
 <?= Html::submitButton('New word', ['class' => 'btn btn-light']) ?>
 <br>

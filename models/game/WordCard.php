@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\field;
+namespace app\models\game;
 
 use Ramsey\Uuid\Uuid;
 use ReflectionClass;
@@ -14,8 +14,10 @@ use yii\helpers\ArrayHelper;
  * @property string $word
  * @property string $uni_id
  */
-class WordCard extends ActiveRecord
+
+class WordCard extends ActiveRecord implements GameInterface
 {
+
     public function __construct(string $uni_id, string $word, $config = [])
     {
         $this->uni_id = $uni_id;
@@ -23,19 +25,28 @@ class WordCard extends ActiveRecord
         parent::__construct($config);
     }
 
-    public function newWordCard($card_value): void
+
+    public static function newWordCard($card_value): void
     {
         $uni_id = Uuid::uuid4()->toString();
-        $newWordField = new WordCard($uni_id, $card_value);
-        $newWordField->save();
+        $newWordCard = new WordCard($uni_id, $card_value);
+        $newWordCard->save();
     }
 
-    public static function gameStart(): bool
+
+    /**
+     * Selects 25 random records from table 'wordCard' (unique id and value) and sends it to class Game to be further sent
+     * to gameCard table;
+     * @return array
+     */
+
+    public static function prepareCardValues(): array
     {
-        $card_values = WordCard::fillCardValues();
-        Game::fillGameTable($card_values);
-        return true;
+        $cardValues = self::find()->select(['word', 'uni_id'])->all();
+        return array_rand(array_flip(ArrayHelper::getColumn
+        ($cardValues, 'word')), 25);
     }
+
 
     /**
      * 'Instance' and 'Instantiate' allows using static functions of the class without
@@ -49,6 +60,7 @@ class WordCard extends ActiveRecord
         return self::instantiate([]);
     }
 
+
     public static function instantiate($row)
     {
         $class = static::class;
@@ -58,19 +70,6 @@ class WordCard extends ActiveRecord
         return $object;
     }
 
-
-    /**
-     * Selects 20 random records from table 'wordCard',
-     * selects their value and id, and sends it to ancestor for further use in the game;
-     * @return array
-     */
-
-    public static function fillCardValues(): array
-    {
-        $cardValues = self::find()->select(['word', 'uni_id'])->all();
-        return array_rand(array_flip(ArrayHelper::getColumn
-        ($cardValues, 'word')), 25);
-    }
 
     public static function tableName(): string
     {

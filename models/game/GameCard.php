@@ -1,22 +1,25 @@
 <?php
 
-namespace app\models\field;
+namespace app\models\game;
 
 use Ramsey\Uuid\Uuid;
 use ReflectionClass;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 
 /**
- * This is the model class for table "game".
+ * This is the model class for table "gameCard".
  *
  * @property int $id
  * @property string $word
  * @property string $uni_id
  * @property string $deactivated
  */
-class Game extends Field
+
+class GameCard extends GameMode
 {
+
 
     public function __construct(string $uni_id, string $word, $config = [])
     {
@@ -25,26 +28,29 @@ class Game extends Field
         parent::__construct($config);
     }
 
-    public static function fillGameTable($card_values): void
+
+    protected function fillGameCardTable($card_values): void
     {
         foreach ($card_values as $card_value) {
             $uni_id = Uuid::uuid4()->toString();
-            $gameField = new Game ($uni_id, $card_value);
-            $gameField->save();
+            $gameCard = new self ($uni_id, $card_value);
+            $gameCard->save();
         }
     }
 
 
-    public static function getPattern(): array
+    protected function getUniIds(): array
     {
-        $uni_ids = self::find()->select(['uni_id'])->All();
+        $uni_ids = self::find()->select(['uni_id'])->all();
         return ArrayHelper::getColumn($uni_ids, 'uni_id');
     }
+
 
     public static function instance($refresh = false): self
     {
         return self::instantiate([]);
     }
+
 
     public static function instantiate($row)
     {
@@ -55,9 +61,10 @@ class Game extends Field
         return $object;
     }
 
+
     public static function tableName(): string
     {
-        return 'game';
+        return 'gameCard';
     }
 
 
