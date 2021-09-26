@@ -13,7 +13,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property int $id
  * @property string $word
- * @property string $uni_id
+ * @property string $field_id
  * @property string $deactivated
  */
 

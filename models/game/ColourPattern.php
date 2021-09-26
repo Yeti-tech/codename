@@ -25,19 +25,19 @@ class ColourPattern extends ActiveRecord
 
 
     private $fieldColour;
-    private $uniId;
+    private $uni_id;
 
     public function __construct(string $colour, string $id, $config = [])
     {
         $this->fieldColour = $colour;
-        $this->uniId = $id;
+        $this->uni_id = $id;
         parent::__construct($config);
     }
 
     public function beforeSave($insert): bool
     {
         $this->setAttribute('colour', $this->fieldColour);
-        $this->setAttribute('field_id', $this->uniId);
+        $this->setAttribute('field_id', $this->uni_id);
 
         return parent::beforeSave($insert);
     }
@@ -45,7 +45,7 @@ class ColourPattern extends ActiveRecord
     public function afterFind(): void
     {
         $this->fieldColour = $this->colour;
-        $this->uniId = $this->field_id;
+        $this->uni_id = $this->field_id;
 
         parent::afterFind();
     }
@@ -57,7 +57,7 @@ class ColourPattern extends ActiveRecord
 
     public function getUniId(): string
     {
-        return $this->uniId;
+        return $this->uni_id;
     }
 
 

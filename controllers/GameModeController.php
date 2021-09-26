@@ -27,7 +27,7 @@ class GameModeController extends \yii\web\Controller
     public function actionForm(): string
     {
         $gameCards = GameCard::find()->all();
-        return $this->render('game', [
+        return $this->render('form', [
             'gameCards' => $gameCards,
         ]);
 

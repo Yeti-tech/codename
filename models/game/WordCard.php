@@ -11,12 +11,14 @@ use yii\helpers\ArrayHelper;
  * This is the model class for table "wordCard".
  *
  * @property int $id
- * @property string $word
- * @property string $uni_id
+ * @property string $word_value
+ * @property string $field_id
  */
-
 class WordCard extends ActiveRecord implements GameInterface
 {
+
+    private $uni_id;
+    private $word;
 
     public function __construct(string $uni_id, string $word, $config = [])
     {
@@ -35,8 +37,8 @@ class WordCard extends ActiveRecord implements GameInterface
 
 
     /**
-     * Selects 25 random records from table 'wordCard' (unique id and value) and sends it to class Game to be further sent
-     * to gameCard table;
+     * Selects 25 random records from table 'wordCard' (unique id and value) and sends it to class Game
+     * to be further sent to gameCard table;
      * @return array
      */
 
@@ -48,13 +50,29 @@ class WordCard extends ActiveRecord implements GameInterface
     }
 
 
+    public function beforeSave($insert): bool
+    {
+        $this->setAttribute('field_id', $this->uni_id);
+        $this->setAttribute('word_value', $this->word);
+
+        return parent::beforeSave($insert);
+    }
+
+    public function afterFind(): void
+    {
+        $this->uni_id = $this->field_id;
+        $this->word = $this->word_value;
+
+        parent::afterFind();
+    }
+
+
     /**
      * 'Instance' and 'Instantiate' allows using static functions of the class without
      * having to call constructor, returns instance of the class
      * @param bool $refresh
      * @return WordCard
      */
-
     public static function instance($refresh = false): self
     {
         return self::instantiate([]);
@@ -80,11 +98,11 @@ class WordCard extends ActiveRecord implements GameInterface
     public function rules(): array
     {
         return [
-            [['word'], 'required'],
-            [['word'], 'string', 'max' => 250],
-            [['uni_id'], 'string'],
-            [['uni_id'], 'required'],
-            [['word'], 'unique'],
+            [['word_value'], 'required'],
+            [['word_value'], 'string', 'max' => 250],
+            [['field_id'], 'string'],
+            [['field_id'], 'required'],
+            [['word_value'], 'unique'],
         ];
     }
 
@@ -93,8 +111,8 @@ class WordCard extends ActiveRecord implements GameInterface
     {
         return [
             'id' => 'ID',
-            'word' => 'Word',
-            'uni_id' => 'UNI',
+            'word_value' => 'Word',
+            'field_id' => 'UNIQUE',
         ];
     }
 
