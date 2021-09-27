@@ -17,8 +17,8 @@ class CardController extends \yii\web\Controller
            $card->deactivated = 1;
            $card->save();
 
-           $card = ColourPattern::findOne(['field_id' => $card->uni_id]);
-           $result = $card->getFieldColour();
+           $card = ColourPattern::findOne(['uni_id' => $card->uni_id]);
+           $result = $card->getColour();
         } else {
             $test = "Ajax failed";
         }

@@ -1,8 +1,8 @@
 <?php
 
-/** @var app\models\game\GameCard $gameCards */
+/** @var app\models\game\GameCard $game_cards */
 /** @var string $word */
-/** @var string $uni_id */
+/** @var string $card_id */
 
 ?>
 
@@ -23,11 +23,11 @@
 
 <?php
 
-foreach ($gameCards as $gameCard) {
+foreach ($game_cards as $game_card) {
     ?>
         <tr>
         <button
-                id="<?= $gameCard->id ?>" class="button">
+                id="<?= $game_card->id ?>" class="button">
             <script>
 
                 $('.button').click(function () {
@@ -53,7 +53,7 @@ foreach ($gameCards as $gameCard) {
         <tr>
             <?php
 
-            echo $gameCard->word;
+            echo $game_card->word;
             ?>
         </tr>
         </button>

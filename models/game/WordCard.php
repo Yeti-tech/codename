@@ -11,18 +11,18 @@ use yii\helpers\ArrayHelper;
  * This is the model class for table "wordCard".
  *
  * @property int $id
+ * @property string $uni_id
  * @property string $word_value
- * @property string $field_id
  */
 class WordCard extends ActiveRecord implements GameInterface
 {
 
-    private $uni_id;
+    private $card_id;
     private $word;
 
-    public function __construct(string $uni_id, string $word, $config = [])
+    public function __construct(string $card_id, string $word, $config = [])
     {
-        $this->uni_id = $uni_id;
+        $this->card_id = $card_id;
         $this->word = $word;
         parent::__construct($config);
     }
@@ -30,40 +30,47 @@ class WordCard extends ActiveRecord implements GameInterface
 
     public static function newWordCard($card_value): void
     {
-        $uni_id = Uuid::uuid4()->toString();
-        $newWordCard = new WordCard($uni_id, $card_value);
+        $card_id = Uuid::uuid4()->toString();
+        $newWordCard = new WordCard($card_id, $card_value);
         $newWordCard->save();
     }
 
 
-    /**
-     * Selects 25 random records from table 'wordCard' (unique id and value) and sends it to class Game
-     * to be further sent to gameCard table;
-     * @return array
-     */
 
     public static function prepareCardValues(): array
     {
-        $cardValues = self::find()->select(['word', 'uni_id'])->all();
+        $card_values = self::find()->select(['word', 'uni_id'])->all();
         return array_rand(array_flip(ArrayHelper::getColumn
-        ($cardValues, 'word')), 25);
+        ($card_values, 'word')), 25);
     }
 
 
     public function beforeSave($insert): bool
     {
-        $this->setAttribute('field_id', $this->uni_id);
-        $this->setAttribute('word_value', $this->word);
+        $this->uni_id = $this->card_id;
+        $this->word_value = $this->word;
 
         return parent::beforeSave($insert);
     }
 
     public function afterFind(): void
     {
-        $this->uni_id = $this->field_id;
+        $this->card_id = $this->uni_id;
         $this->word = $this->word_value;
 
         parent::afterFind();
+    }
+
+
+    public function getCardId(): string
+    {
+        return $this->card_id;
+    }
+
+
+    public function getWord(): string
+    {
+        return $this->word;
     }
 
 
@@ -100,8 +107,8 @@ class WordCard extends ActiveRecord implements GameInterface
         return [
             [['word_value'], 'required'],
             [['word_value'], 'string', 'max' => 250],
-            [['field_id'], 'string'],
-            [['field_id'], 'required'],
+            [['uni_id'], 'string'],
+            [['uni_id'], 'required'],
             [['word_value'], 'unique'],
         ];
     }
@@ -112,7 +119,7 @@ class WordCard extends ActiveRecord implements GameInterface
         return [
             'id' => 'ID',
             'word_value' => 'Word',
-            'field_id' => 'UNIQUE',
+            'uni_id' => 'UNIQUE',
         ];
     }
 

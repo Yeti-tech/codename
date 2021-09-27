@@ -4,7 +4,6 @@ namespace app\models\game;
 
 use Ramsey\Uuid\Uuid;
 use ReflectionClass;
-use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 
@@ -13,13 +12,12 @@ use yii\helpers\ArrayHelper;
  *
  * @property int $id
  * @property string $word
- * @property string $field_id
- * @property string $deactivated
+ * @property string $uni_id
+ * @property integer $deactivated
  */
 
 class GameCard extends GameMode
 {
-
 
     public function __construct(string $uni_id, string $word, $config = [])
     {
@@ -29,20 +27,20 @@ class GameCard extends GameMode
     }
 
 
-    protected function fillGameCardTable($card_values): void
+    protected static function fillGameCardTable($card_values): void
     {
         foreach ($card_values as $card_value) {
-            $uni_id = Uuid::uuid4()->toString();
-            $gameCard = new self ($uni_id, $card_value);
-            $gameCard->save();
+            $card_id = Uuid::uuid4()->toString();
+            $game_card = new self ($card_id, $card_value);
+            $game_card->save();
         }
     }
 
 
-    protected function getUniIds(): array
+    protected static function getCardIds(): array
     {
-        $uni_ids = self::find()->select(['uni_id'])->all();
-        return ArrayHelper::getColumn($uni_ids, 'uni_id');
+        $card_ids = self::find()->select(['uni_id'])->all();
+        return ArrayHelper::getColumn($card_ids, 'uni_id');
     }
 
 
@@ -73,6 +71,8 @@ class GameCard extends GameMode
         return [
             [['word'], 'required'],
             [['word'], 'string', 'max' => 250],
+            [['uni_id'], 'string', 'max' => 255],
+            [['deactivated'], 'integer'],
         ];
     }
 
@@ -82,6 +82,8 @@ class GameCard extends GameMode
         return [
             'id' => 'ID',
             'word' => 'Word',
+            'uni_id' => 'Unique',
+            'deactivated' => 'Deactivated',
         ];
     }
 

@@ -6,18 +6,19 @@ use app\models\game\ColourPattern;
 use app\models\game\GameCard;
 use app\models\game\GameMode;
 
+
 class GameModeController extends \yii\web\Controller
 
 {
 
     public function actionGame(): string
     {
-        $uni_ids = GameMode::gamestart();
-        $gameReady = ColourPattern::fillPattern($uni_ids);
+        $card_ids = GameMode::gamestart();
+        $gameReady = ColourPattern::setColours($card_ids);
         if ($gameReady) {
-            $gameCards = GameCard::find()->all();
+            $game_cards = GameCard::find()->all();
             return $this->render('game', [
-                'gameCards' => $gameCards,
+                'game_cards' => $game_cards,
             ]);
         }
         return 'Error occurred while preparing the game';
@@ -26,9 +27,9 @@ class GameModeController extends \yii\web\Controller
 
     public function actionForm(): string
     {
-        $gameCards = GameCard::find()->all();
+        $game_cards = GameCard::find()->all();
         return $this->render('form', [
-            'gameCards' => $gameCards,
+            'game_cards' => $game_cards,
         ]);
 
     }
@@ -42,8 +43,8 @@ class GameModeController extends \yii\web\Controller
             $card->deactivated = 1;
             $card->save();
 
-            $card = ColourPattern::findOne(['field_id' => $card->uni_id]);
-            $result = $card->getFieldColour();
+            $card = ColourPattern::findOne(['uni_id' => $card->uni_id]);
+            $result = $card->getColour();
         } else {
             $result = "Ajax failed";
         }

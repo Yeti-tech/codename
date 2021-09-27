@@ -9,8 +9,8 @@ use yii\db\ActiveRecord;
  * This is the model class for table "colourPattern".
  *
  * @property int $id
- * @property string $colour
- * @property string|null $field_id
+ * @property string|null $uni_id
+ * @property string $colour_value
  */
 class ColourPattern extends ActiveRecord
 {
@@ -23,52 +23,51 @@ class ColourPattern extends ActiveRecord
         'blue', 'blue', 'blue', 'red', 'blue', 'blue', 'blue', 'blue', 'gray', 'gray', 'gray',
         'gray', 'gray', 'gray', 'gray'];
 
+    private $card_id;
+    private $colour;
 
-    private $fieldColour;
-    private $uni_id;
-
-    public function __construct(string $colour, string $id, $config = [])
+    public function __construct(string $card_id, string $colour, $config = [])
     {
-        $this->fieldColour = $colour;
-        $this->uni_id = $id;
+        $this->card_id = $card_id;
+        $this->colour = $colour;
         parent::__construct($config);
     }
 
     public function beforeSave($insert): bool
     {
-        $this->setAttribute('colour', $this->fieldColour);
-        $this->setAttribute('field_id', $this->uni_id);
+        $this->uni_id = $this->card_id;
+        $this->colour_value = $this->colour;
 
         return parent::beforeSave($insert);
     }
 
     public function afterFind(): void
     {
-        $this->fieldColour = $this->colour;
-        $this->uni_id = $this->field_id;
+        $this->card_id = $this->uni_id;
+        $this->colour = $this->colour_value;
 
         parent::afterFind();
     }
 
-    public function getFieldColour(): string
+    public function getCardId(): string
     {
-        return $this->fieldColour;
+        return $this->card_id;
     }
 
-    public function getUniId(): string
+    public function getColour(): string
     {
-        return $this->uni_id;
+        return $this->colour;
     }
 
 
-    public static function fillPattern(array $uni_ids): bool
+    public static function setColours(array $card_ids): bool
     {
 
         $colours = self::PATTERN;
         shuffle($colours);
 
         for ($i = 0; $i <= 25; $i++) {
-            $pattern = new ColourPattern($colours[$i], $uni_ids[$i]);
+            $pattern = new ColourPattern($colours[$i], $card_ids[$i]);
             $pattern->beforeSave(true);
             $pattern->save();
         }
@@ -102,9 +101,9 @@ class ColourPattern extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['colour'], 'required'],
-            [['colour'], 'string', 'max' => 250],
-            [['field_id'], 'string', 'max' => 250],
+            [['colour_value'], 'required'],
+            [['colour_value'], 'string', 'max' => 250],
+            [['uni_id'], 'string', 'max' => 250],
         ];
     }
 
@@ -113,8 +112,8 @@ class ColourPattern extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'colour' => 'Colour',
-            'field_id' => 'Field ID',
+            'colour_value' => 'ColourValue',
+            'uni_id' => 'Unique',
         ];
     }
 }

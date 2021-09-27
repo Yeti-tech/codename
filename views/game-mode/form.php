@@ -1,8 +1,8 @@
 <?php
 
-/** @var app\models\game\GameCard $gameCards */
+/** @var app\models\game\GameCard $game_cards */
 /** @var string $word */
-/** @var string $uni_id */
+/** @var string $card_id */
 
 ?>
     <style>
@@ -35,7 +35,7 @@
     <table class = card_list >
 
         <?php
-        $gameAllCards = array_chunk($gameCards, 5);
+        $gameAllCards = array_chunk($game_cards, 5);
         ?>
 
         <?php
