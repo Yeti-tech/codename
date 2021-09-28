@@ -2,6 +2,7 @@
 
 namespace app\models\game;
 
+use app\models\game\GameMode;
 use Ramsey\Uuid\Uuid;
 use ReflectionClass;
 use yii\helpers\ArrayHelper;
@@ -11,27 +12,31 @@ use yii\helpers\ArrayHelper;
  * This is the model class for table "gameCard".
  *
  * @property int $id
- * @property string $word
+ * @property string $word_value
  * @property string $uni_id
  * @property integer $deactivated
  */
-
 class GameCard extends GameMode
 {
 
-    public function __construct(string $uni_id, string $word, $config = [])
+    private $card_id;
+    private $card_value;
+    private $deactivate;
+
+    public function __construct(string $card_id, string $card_value, $config = [])
     {
-        $this->uni_id = $uni_id;
-        $this->word = $word;
+        $this->card_id = $card_id;
+        $this->card_value = $card_value;
         parent::__construct($config);
     }
 
 
-    protected static function fillGameCardTable($card_values): void
+    protected static function fillGameCardTable(array $card_values): void
     {
         foreach ($card_values as $card_value) {
             $card_id = Uuid::uuid4()->toString();
             $game_card = new self ($card_id, $card_value);
+            $game_card->beforeSave(true);
             $game_card->save();
         }
     }
@@ -41,6 +46,42 @@ class GameCard extends GameMode
     {
         $card_ids = self::find()->select(['uni_id'])->all();
         return ArrayHelper::getColumn($card_ids, 'uni_id');
+    }
+
+
+    public function beforeSave($insert): bool
+    {
+        $this->uni_id = $this->card_id;
+        $this->word_value = $this->card_value;
+
+        return parent::beforeSave($insert);
+    }
+
+
+    public function afterFind(): void
+    {
+        $this->card_id = $this->uni_id;
+        $this->card_value = $this->word_value;
+
+        parent::afterFind();
+    }
+
+
+    public function getCardId(): string
+    {
+        return $this->card_id;
+    }
+
+
+    public function getWord(): string
+    {
+        return $this->card_value;
+    }
+
+
+    public function getDeactivate(): int
+    {
+        return $this->deactivate;
     }
 
 
@@ -69,8 +110,8 @@ class GameCard extends GameMode
     public function rules(): array
     {
         return [
-            [['word'], 'required'],
-            [['word'], 'string', 'max' => 250],
+            [['word_value'], 'required'],
+            [['word_value'], 'string', 'max' => 250],
             [['uni_id'], 'string', 'max' => 255],
             [['deactivated'], 'integer'],
         ];

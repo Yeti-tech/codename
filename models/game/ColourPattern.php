@@ -35,6 +35,7 @@ class ColourPattern extends ActiveRecord
 
     public function beforeSave($insert): bool
     {
+
         $this->uni_id = $this->card_id;
         $this->colour_value = $this->colour;
 
@@ -66,8 +67,8 @@ class ColourPattern extends ActiveRecord
         $colours = self::PATTERN;
         shuffle($colours);
 
-        for ($i = 0; $i <= 25; $i++) {
-            $pattern = new ColourPattern($colours[$i], $card_ids[$i]);
+        for ($i = 0; $i < 25; $i++) {
+            $pattern = new ColourPattern($card_ids[$i], $colours[$i]);
             $pattern->beforeSave(true);
             $pattern->save();
         }
