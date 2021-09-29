@@ -23,13 +23,13 @@ class GameCard extends GameMode
     private $card_value;
     private $deactivate;
 
-    public function __construct(string $card_id, string $card_value, $config = [])
+    public function __construct(string $card_id, string $card_value, int $deactivate = 0, $config = [])
     {
         $this->card_id = $card_id;
         $this->card_value = $card_value;
+        $this->deactivate = $deactivate;
         parent::__construct($config);
     }
-
 
     protected static function fillGameCardTable(array $card_values): void
     {
@@ -49,10 +49,17 @@ class GameCard extends GameMode
     }
 
 
+    public function getColour($card_id): string
+    {
+        $card = ColourPattern::findOne(['uni_id' => $card_id]);
+        return $card->getColour();
+    }
+
     public function beforeSave($insert): bool
     {
         $this->uni_id = $this->card_id;
         $this->word_value = $this->card_value;
+        $this->deactivated = $this->deactivate;
 
         return parent::beforeSave($insert);
     }
@@ -62,6 +69,7 @@ class GameCard extends GameMode
     {
         $this->card_id = $this->uni_id;
         $this->card_value = $this->word_value;
+        $this->deactivate = $this->deactivated;
 
         parent::afterFind();
     }
@@ -79,9 +87,15 @@ class GameCard extends GameMode
     }
 
 
-    public function getDeactivate(): int
+    public function getDeactivate()
     {
         return $this->deactivate;
+    }
+
+
+    public function setDeactivate($int)
+    {
+        return $this->deactivate = $int;
     }
 
 
