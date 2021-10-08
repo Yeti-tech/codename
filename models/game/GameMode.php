@@ -15,10 +15,11 @@ abstract class GameMode extends ActiveRecord
         return GameCard::getCardIds();
     }
 
-
     abstract protected static function fillGameCardTable(array $card_values): void;
 
     abstract protected static function getCardIds(): array;
+
+    abstract public function deactivate();
 
     //  abstract protected static function resetPattern(): array;
 

@@ -42,7 +42,6 @@ class WordCard extends ActiveRecord implements GameInterface
     public static function prepareCardValues(): array
     {
         $card_values = self::find()->select(['word_value', 'uni_id'])->all();
-       // VarDumper::dump($card_values);
         return array_rand(array_flip(ArrayHelper::getColumn
         ($card_values, 'word_value')), 25);
     }

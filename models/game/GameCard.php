@@ -55,6 +55,12 @@ class GameCard extends GameMode
         return $card->getColour();
     }
 
+    public function deactivate(): void
+    {
+        $this->setDeactivate(1);
+        $this->save();
+    }
+
     public function beforeSave($insert): bool
     {
         $this->uni_id = $this->card_id;

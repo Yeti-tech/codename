@@ -8,65 +8,83 @@ use Yii;
  * This is the model class for table "game".
  *
  * @property int $id
- * @property string|null $first_player
- * @property string|null $second_player
+ * @property string|null $blue_cards
+ * @property string|null $red_cards
  * @property string|null $current_player
  * @property integer|null $words_number
  *
  */
 class Game extends \yii\db\ActiveRecord
 {
-    public const STATUS_NEW = 'new';
-    public const STATUS_IN_PROGRESS = 'in_progress';
-    public const STATUS_COMPLETED = 'completed';
 
-    public const STATUSES = [
-        self::STATUS_NEW => 'Добавлена',
-        self::STATUS_IN_PROGRESS => 'В работе',
-        self::STATUS_COMPLETED => 'Завершена',
-    ];
-
-
-    public static function getWordsNumber():int
+    public static function getWordsNumber(): int
     {
         return self::find()->one()->words_number;
     }
 
 
-    public static function getCurrentPlayer(): string
+    public function defineWordsNumber(): void
     {
-        $current_team = self::find()->one();
-        $current_team = $current_team->current_player;
-        if($current_team === 'blue') {
-            $current_team = 'ХОД СИНИХ';
-        } else {
-            $current_team = 'ХОД КРАСНЫХ';
-        }
-        return $current_team;
+        $this->words_number =  $_POST['number'];
+        $this->save();
     }
 
-    public static function defineWhoseTurn(array $result): string
+
+    public function defineWhoseTurn(array $result): string
     {
-        $game_record = self::find()->one();
-        if ($result['colour'] === $game_record->current_player && $game_record->words_number > 1) {
-            $game_record->words_number = --$game_record->words_number;
-            $game_record->save();
-            return $game_record->current_player;
+        if ($result['colour'] === $this->current_player && $this->words_number > 1)
+        {
+            $this->words_number = --$this->words_number;
+            $this->save();
+            return $this->current_player;
         }
 
-        if($result['colour'] !== $game_record->current_player|| $game_record->words_number = 1) {
-            $game_record->words_number = null;
-            if($game_record->current_player !== 'red'){
-                $new_team = 'red';
+        if ($result['colour'] !== $this->current_player || $this->words_number = 1)
+        {
+            $this->words_number = null;
+            if ($this->current_player !== 'red') {
+                $this->current_player = 'red';
             } else {
-                $new_team = 'blue';
+                $this->current_player = 'blue';
             }
-            $game_record->current_player = $new_team;
-            $game_record->save();
-            return $new_team;
+            $this->save();
         }
 
-        return $game_record->current_player;
+        return $this->current_player;
+    }
+
+    public function defineNewTeam(array $result): string
+    {
+        if ($result['colour'] === $this->current_player && $this->words_number >= 1) {
+            return 'false';
+        }
+        return 'true';
+    }
+
+    public function checkWinner(array $result): string
+    {
+        if ($result['colour'] === 'blue') {
+            $this->blue_cards = --$this->blue_cards;
+            if ($this->blue_cards === 0) {
+                return 'blue won';
+            }
+        }
+
+        if ($result['colour'] === 'red') {
+            $this->red_cards = --$this->red_cards;
+            if ($this->red_cards === 0) {
+                return 'red';
+            }
+        }
+
+        if ($result['colour'] === 'black') {
+            if ($this->current_player === 'red') {
+                return 'blue';
+            }
+            return 'red';
+        }
+        $this->save();
+        return false;
     }
 
 
@@ -79,8 +97,8 @@ class Game extends \yii\db\ActiveRecord
     public function rules(): array
     {
         return [
-            [['first_player', 'second_player', 'current_player'], 'string', 'max' => 250],
-            [['words_number'], 'integer'],
+            [['current_player'], 'string', 'max' => 250],
+            [['words_number', 'blue_cards', 'red_cards'], 'integer'],
         ];
     }
 
@@ -88,8 +106,8 @@ class Game extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'first_player' => 'First Player',
-            'second_player' => 'Second Player',
+            'blue_cards' => 'blue cards',
+            'red_cards' => 'red cards',
             'current_player' => 'Current Player',
             'words_number' => 'Words Number',
         ];

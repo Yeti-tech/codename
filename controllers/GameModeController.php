@@ -7,7 +7,6 @@ use app\models\game\ColourPattern;
 use app\models\game\GameCard;
 use app\models\game\GameMode;
 use app\models\game\WordCard;
-use yii\helpers\VarDumper;
 
 
 class GameModeController extends \yii\web\Controller
@@ -27,7 +26,7 @@ class GameModeController extends \yii\web\Controller
         return 'Error occurred while preparing the game';
     }
 
-    public function actionWord()
+    public function actionWord(): void
     {
         WordCard::newWordCard('крепость');
     }
@@ -36,7 +35,6 @@ class GameModeController extends \yii\web\Controller
     {
 
         $game_cards = GameCard::find()->all();
-        //$current_team = Game::getCurrentPlayer();
 
         return $this->render('form', [
             'game_cards' => $game_cards,
@@ -44,42 +42,41 @@ class GameModeController extends \yii\web\Controller
 
     }
 
-    public function actionWordsNumber()
+    public function actionNumber()
     {
-        if (isset($_POST['words_number'])) {
-
+        if (isset($_POST['number'])) {
             $game_record = Game::find()->one();
-            $game_record->words_number = $_POST['words_number'];
-            $game_record->save();
+            $game_record->defineWordsNumber();
         }
+        return $_POST['number'];
     }
 
     public function actionAjax()
     {
         if (isset($_POST['id'])) {
-
             $card = GameCard::findOne(['id' => $_POST['id']]);
-            $card->setDeactivate(1);
-            $card->save();
+            $game = Game::find()->one();
+            $card->deactivate();
+
+
             $result['colour']  = $card->getColour($card->getCardId());
-            $result['turn'] = Game::defineWhoseTurn($result);
+            $result['winner'] = $game->checkWinner($result);
+            $result['turn'] = $game->defineWhoseTurn($result);
+            $result['newTeam'] = $game->defineNewTeam($result);
 
         } else {
             $result[] = "Ajax failed";
         }
-        //VarDumper::dump($result);
         return json_encode($result);
     }
 
-
-    public function actionTest()
+    public function actionColours()
     {
+        $game_cards = GameCard::find()->all();
 
-        $card = GameCard::findOne(['id' => '390']);
-        $result['colour']  = $card->getColour($card->getCardId());
-        $result['turn'] = Game::defineWhoseTurn($result);
-        $result = json_encode($result);
-        VarDumper::dump($result);
-
+        return $this->render('colours', [
+            'game_cards' => $game_cards,
+        ]);
     }
+
 }
