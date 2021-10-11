@@ -33,6 +33,8 @@ class GameCard extends GameMode
 
     protected static function fillGameCardTable(array $card_values): void
     {
+        shuffle($card_values);
+
         foreach ($card_values as $card_value) {
             $card_id = Uuid::uuid4()->toString();
             $game_card = new self ($card_id, $card_value);

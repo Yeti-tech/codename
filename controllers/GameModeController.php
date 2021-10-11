@@ -15,6 +15,10 @@ class GameModeController extends \yii\web\Controller
 
     public function actionGame(): string
     {
+        GameCard::deleteAll();
+        Game::deleteAll();
+        ColourPattern::deleteAll();
+
         $card_ids = GameMode::gameStart();
         $gameReady = ColourPattern::setColours($card_ids);
         if ($gameReady) {
@@ -51,6 +55,7 @@ class GameModeController extends \yii\web\Controller
         return $_POST['number'];
     }
 
+
     public function actionAjax()
     {
         if (isset($_POST['id'])) {
@@ -63,6 +68,9 @@ class GameModeController extends \yii\web\Controller
             $result['winner'] = $game->checkWinner($result);
             $result['turn'] = $game->defineWhoseTurn($result);
             $result['newTeam'] = $game->defineNewTeam($result);
+            $result['number'] = $game->words_number;
+            $result['bluename'] = $game->blue_team_name;
+            $result['redname'] = $game->red_team_name;
 
         } else {
             $result[] = "Ajax failed";

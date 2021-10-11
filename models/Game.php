@@ -12,6 +12,8 @@ use Yii;
  * @property string|null $red_cards
  * @property string|null $current_player
  * @property integer|null $words_number
+ * @property string|null $blue_team_name
+ * @property string|null $red_team_name
  *
  */
 class Game extends \yii\db\ActiveRecord
@@ -99,6 +101,8 @@ class Game extends \yii\db\ActiveRecord
         return [
             [['current_player'], 'string', 'max' => 250],
             [['words_number', 'blue_cards', 'red_cards'], 'integer'],
+            [['blue_team_name'], 'string', 'max' => 255],
+            [['red_team_name'], 'string', 'max' => 255],
         ];
     }
 
@@ -110,6 +114,8 @@ class Game extends \yii\db\ActiveRecord
             'red_cards' => 'red cards',
             'current_player' => 'Current Player',
             'words_number' => 'Words Number',
+            'blue_team_name' => 'BlueTeamName',
+            'red_team_name' => 'RedTeamName',
         ];
     }
 }

@@ -26,7 +26,9 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <header>
+
     <?php
+    /**
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
@@ -34,7 +36,7 @@ AppAsset::register($this);
             'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
         ],
     ]);
-    echo Nav::widget([
+/**  echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
@@ -55,6 +57,7 @@ AppAsset::register($this);
         ],
     ]);
     NavBar::end();
+  */
     ?>
 </header>
 
