@@ -10,7 +10,6 @@ use app\models\game\WordCard;
 
 
 class GameModeController extends \yii\web\Controller
-
 {
 
     public function actionGame(): string
@@ -22,13 +21,15 @@ class GameModeController extends \yii\web\Controller
         $card_ids = GameMode::gameStart();
         $gameReady = ColourPattern::setColours($card_ids);
         if ($gameReady) {
+
             $game_cards = GameCard::find()->all();
-            return $this->render('game', [
+            return $this->render('form', [
                 'game_cards' => $game_cards,
             ]);
         }
         return 'Error occurred while preparing the game';
     }
+
 
     public function actionWord(): void
     {
@@ -77,6 +78,30 @@ class GameModeController extends \yii\web\Controller
         }
         return json_encode($result);
     }
+
+    public function actionBlue(): string
+    {
+        if (isset($_POST['nameBlueTeam'])) {
+            $result = $_POST['nameBlueTeam'];
+            $game_record = Game::find()->one();
+            $game_record->saveBlueTeamName();
+            return $result;
+        }
+       return "Ajax failed";
+    }
+
+
+    public function actionRed(): string
+    {
+        if (isset($_POST['nameRedTeam'])) {
+            $result = $_POST['nameRedTeam'];
+            $game_record = Game::find()->one();
+            $game_record->saveRedTeamName();
+            return $result;
+        }
+        return "Ajax failed";
+    }
+
 
     public function actionColours()
     {

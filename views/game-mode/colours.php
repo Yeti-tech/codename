@@ -6,6 +6,11 @@ use yii\helpers\Html;
 $this->registerJsFile('@web/js/fuck.js',   ['depends' => [\yii\web\JqueryAsset::class]]
 );
 
+
+
+
+echo Yii::$app->basePath;
+
 ?>
 <style>
 

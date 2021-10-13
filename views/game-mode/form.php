@@ -179,15 +179,16 @@ use yii\helpers\Html;
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2"></script>
 
 
-<?php require("ajax.js")?>
-<?php require("script.js")?>
-<script src="ajax.js">...</script>
-<script src="script.js">...</script>
-<b>
-    <div id="main" class=blueteam>ХОД СИНИХ</div>
-</b>
+<?php require("E:\OSPanel\domains\codename\web\js\script.js");
+require("E:\OSPanel\domains\codename\web\js\ajax.js");
+require_once("E:\OSPanel\domains\codename\web\js\callTeams.js")?>
+
+
+<p id="main" class=blueteam></p>
+
 
 <br>
 <p id="1" class="gradient-button" onclick="foo(this.id)">1</p>
@@ -201,6 +202,7 @@ use yii\helpers\Html;
 <table class=fixed>
 
     <?php
+
     $gameAllCards = array_chunk($game_cards, 5);
     ?>
 

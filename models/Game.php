@@ -27,22 +27,32 @@ class Game extends \yii\db\ActiveRecord
 
     public function defineWordsNumber(): void
     {
-        $this->words_number =  $_POST['number'];
+        $this->words_number = $_POST['number'];
+        $this->save();
+    }
+
+    public function saveBlueTeamName()
+    {
+        $this->blue_team_name = $_POST['nameBlueTeam'];
+        $this->save();
+    }
+
+    public function saveRedTeamName()
+    {
+        $this->red_team_name = $_POST['nameRedTeam'];
         $this->save();
     }
 
 
     public function defineWhoseTurn(array $result): string
     {
-        if ($result['colour'] === $this->current_player && $this->words_number > 1)
-        {
+        if ($result['colour'] === $this->current_player && $this->words_number > 1) {
             $this->words_number = --$this->words_number;
             $this->save();
             return $this->current_player;
         }
 
-        if ($result['colour'] !== $this->current_player || $this->words_number = 1)
-        {
+        if ($result['colour'] !== $this->current_player || $this->words_number = 1) {
             $this->words_number = null;
             if ($this->current_player !== 'red') {
                 $this->current_player = 'red';
