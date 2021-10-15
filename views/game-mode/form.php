@@ -1,6 +1,10 @@
 <?php
 
 /** @var app\models\game\GameCard $game_cards */
+/** @var string $currentPlayer */
+// require("E:\OSPanel\domains\codename\web\js\script.js");
+//require("E:\OSPanel\domains\codename\web\js\ajax.js");
+//require_once("E:\OSPanel\domains\codename\web\js\callTeams.js")
 
 
 use yii\helpers\Html;
@@ -23,7 +27,7 @@ use yii\helpers\Html;
     }
 
     .redteam {
-        color: #e36532;
+        color: #800000;
         position: relative;
         left: 310px;
         top: 30px;
@@ -150,6 +154,9 @@ use yii\helpers\Html;
         background-position: right center;
     }
 
+    .active {
+        color: red;
+    }
     .number{
         text-decoration: none;
         display: inline-block;
@@ -175,19 +182,20 @@ use yii\helpers\Html;
 </style>
 
 
+<p id="main" class=blueteam></p>
+
+<p id=js class=active></p>
+
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2"></script>
 
-
-<?php require("E:\OSPanel\domains\codename\web\js\script.js");
-require("E:\OSPanel\domains\codename\web\js\ajax.js");
-require_once("E:\OSPanel\domains\codename\web\js\callTeams.js")?>
-
-
-<p id="main" class=blueteam></p>
+<?php
+ require("E:\OSPanel\domains\codename\web\js\script.js");
+require("E:\OSPanel\domains\codename\web\js\ajax.js")?>
 
 
 <br>
@@ -229,7 +237,10 @@ require_once("E:\OSPanel\domains\codename\web\js\callTeams.js")?>
     <?php endforeach; ?>
 </table>
 <br>
-<?= Html::a('Посмотреть цвета карточек', ['game-mode/colours'], ['class' => 'profile-link']) ?>
+<?= Html::a('Посмотреть цвета карточек', ['game-mode/colours'], ['class' => 'profile-link']);
+
+ require_once("E:\OSPanel\domains\codename\web\js\current.js");
+?>
 
 
 

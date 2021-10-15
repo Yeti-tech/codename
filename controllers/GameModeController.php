@@ -14,22 +14,36 @@ class GameModeController extends \yii\web\Controller
 
     public function actionGame(): string
     {
-        GameCard::deleteAll();
-        Game::deleteAll();
-        ColourPattern::deleteAll();
+      //  GameCard::deleteAll();
+      //  Game::deleteAll();
+      //  ColourPattern::deleteAll();
 
-        $card_ids = GameMode::gameStart();
-        $gameReady = ColourPattern::setColours($card_ids);
-        if ($gameReady) {
-
+       // $card_ids = GameMode::gameStart();
+     //   $gameReady = ColourPattern::setColours($card_ids);
+      //  if ($gameReady) {
+      //  $game_record = Game::find()->one();
+     //   $currentPlayer =  $game_record->current_player;
             $game_cards = GameCard::find()->all();
             return $this->render('form', [
                 'game_cards' => $game_cards,
             ]);
-        }
-        return 'Error occurred while preparing the game';
+      //  }
+       // return 'Error occurred while preparing the game';
     }
+  public function actionCurrent()
+  {
+      $game_record = Game::find()->one();
+      $result['colour'] =  $game_record->current_player;
+      if($result['colour']  === 'blue')
+      {
+          $result['name'] = $game_record->blue_team_name;
+      } else {
+          $result['name'] = $game_record->blue_team_name;
+      }
 
+      return json_encode($result);
+
+  }
 
     public function actionWord(): void
     {
@@ -103,7 +117,7 @@ class GameModeController extends \yii\web\Controller
     }
 
 
-    public function actionColours()
+    public function actionColours(): string
     {
         $game_cards = GameCard::find()->all();
 
@@ -112,4 +126,16 @@ class GameModeController extends \yii\web\Controller
         ]);
     }
 
+    public function actionBeforeBegin(): string
+    {
+        GameCard::deleteAll();
+        Game::deleteAll();
+        ColourPattern::deleteAll();
+
+        $card_ids = GameMode::gameStart();
+        ColourPattern::setColours($card_ids);
+
+        return $this->render('start', [
+        ]);
+    }
 }

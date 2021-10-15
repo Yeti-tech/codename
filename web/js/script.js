@@ -16,7 +16,7 @@
 							$("#" + id).addClass('blue')
 							break
 							case 'red':
-							$("#" + id).addClass('blue')
+							$("#" + id).addClass('red')
 							break
 							case 'black':
 							$("#" + id).addClass('black')
