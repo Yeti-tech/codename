@@ -1,5 +1,13 @@
 <script>
 
+//begin()
+
+//function begin() {
+	//  $('#main').text(blueTeam)
+	//$('#js').text('blueTeam');
+	//if($('#js').classList.contains('active'))
+	//if (document.getElementById("js"))
+	
 Swal.fire({
   title: 'Имя красной команды',
   input: 'text',
@@ -40,15 +48,21 @@ Swal.fire({
 			let blueTeam = result
 			Swal.fire({
   title: 'Полетели!',
-  text: 'Начинают   ' + ' ' + blueTeam,
+  text: redTeam  + ' против ' + blueTeam,
   imageUrl: '/web/images/23549.jpg',
   imageWidth: 550,
   imageHeight: 300,
   imageAlt: 'Custom image',
-})
-			   $('#main').text(blueTeam)
+   confirmButtonText: 'Ok',
+  showLoaderOnConfirm: true,
+  allowOutsideClick: () => !Swal.isLoading()
+ }).then((result) => {
+	if (result.isConfirmed) {
+location='/web/game-mode/game';
+			 //  $('#main').text(blueTeam)
+			 //  beginGame
 			   //whoFirst = rollDice(blueTeam, redTeam)
-			  // alert(whoFirst)
+			  // alert('whoFirst')
 		}
     })  
 	}
@@ -58,23 +72,9 @@ Swal.fire({
 	}
 }
 )
-
-
-function changeTeam(blueTeam){
-	$('#main').text(blueTeam)
-}
-	
-	function rollDice(blueTeam, redTeam)
-	{
-		rand = randomInteger(1, 2)
-		if(rand === 1)
-		{
-			return redTeam
-		}
-		else {
-			return blueTeam
-		}
 	}
+	}) 
+
 	
 	
 

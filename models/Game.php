@@ -44,6 +44,21 @@ class Game extends \yii\db\ActiveRecord
     }
 
 
+    public function showWhoseTurn($game_record): array
+    {
+        $colour =  $game_record->current_player;
+        if($colour  === 'blue')
+        {
+            $result['name'] = $game_record->blue_team_name;
+            $result['colour'] = 'blueteam';
+            return $result;
+        }
+        $result['name'] = $game_record->red_team_name;
+        $result['colour'] = 'redteam';
+        return $result;
+    }
+
+
     public function defineWhoseTurn(array $result): string
     {
         if ($result['colour'] === $this->current_player && $this->words_number > 1) {

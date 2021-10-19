@@ -7,6 +7,7 @@ use app\models\game\ColourPattern;
 use app\models\game\GameCard;
 use app\models\game\GameMode;
 use app\models\game\WordCard;
+use yii\helpers\VarDumper;
 
 
 class GameModeController extends \yii\web\Controller
@@ -14,36 +15,17 @@ class GameModeController extends \yii\web\Controller
 
     public function actionGame(): string
     {
-      //  GameCard::deleteAll();
-      //  Game::deleteAll();
-      //  ColourPattern::deleteAll();
+        $game_record = Game::find()->one();
+        $result = $game_record->showWhoseTurn($game_record);
 
-       // $card_ids = GameMode::gameStart();
-     //   $gameReady = ColourPattern::setColours($card_ids);
-      //  if ($gameReady) {
-      //  $game_record = Game::find()->one();
-     //   $currentPlayer =  $game_record->current_player;
+
             $game_cards = GameCard::find()->all();
             return $this->render('form', [
                 'game_cards' => $game_cards,
+                'result'  => $result,
             ]);
-      //  }
-       // return 'Error occurred while preparing the game';
     }
-  public function actionCurrent()
-  {
-      $game_record = Game::find()->one();
-      $result['colour'] =  $game_record->current_player;
-      if($result['colour']  === 'blue')
-      {
-          $result['name'] = $game_record->blue_team_name;
-      } else {
-          $result['name'] = $game_record->blue_team_name;
-      }
 
-      return json_encode($result);
-
-  }
 
     public function actionWord(): void
     {
@@ -55,11 +37,46 @@ class GameModeController extends \yii\web\Controller
 
         $game_cards = GameCard::find()->all();
 
-        return $this->render('form', [
+        return $this->render('game', [
             'game_cards' => $game_cards,
+
         ]);
 
     }
+
+    public function actionShow()
+    {
+       if (isset($_POST['id'])) {
+           // $result = GameCard::find()->all();
+           $game_cards = GameCard::find()->all();
+           $i = 0;
+           foreach ($game_cards as $game_card) {
+
+               $result[$i]['card_value'] = $game_card->getWord();
+               $result[$i]['colour'] = $game_card->getColour($game_card->getCardId());
+               $i++;
+           }
+
+           return json_encode($result,JSON_UNESCAPED_UNICODE);
+       }
+        return $result[] = "Ajax failed";
+    }
+
+    public function actionTest()
+    {
+        $game_cards = GameCard::find()->all();
+            $i = 0;
+            foreach ($game_cards as $game_card) {
+
+                    $result[$i]['card_value'] = $game_card->getWord();
+                    $result[$i]['colour'] = $game_card->getColour($game_card->getCardId());
+                    $i++;
+                }
+
+        echo json_encode($result,JSON_UNESCAPED_UNICODE);
+    }
+
+
 
     public function actionNumber()
     {

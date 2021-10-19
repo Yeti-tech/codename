@@ -3,14 +3,6 @@
 /** @var app\models\game\GameCard $game_cards */
 
 use yii\helpers\Html;
-$this->registerJsFile('@web/js/fuck.js',   ['depends' => [\yii\web\JqueryAsset::class]]
-);
-
-
-
-
-echo Yii::$app->basePath;
-
 ?>
 <style>
 
@@ -30,22 +22,6 @@ echo Yii::$app->basePath;
 
     table.fixed td {
         padding: 20px;
-    }
-
-    table.fixed td:nth-of-type(1) {
-        width:200px;
-    }
-    table.fixed td:nth-of-type(2) {
-        width:200px;
-    }
-    table.fixed td:nth-of-type(3) {
-        width:200px;
-    }
-    table.fixed td:nth-of-type(4) {
-        width:200px;
-    }
-    table.fixed td:nth-of-type(5) {
-        width:200px;
     }
 
     table.fixed tr {
@@ -111,10 +87,8 @@ echo Yii::$app->basePath;
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
 
-<script src ="../../web/js/fuck.js"></script>
 <br><br>
 <table class=fixed>
-    <button id = 'gg' class = "button" onclick ="fuck()">fuck me</button>
     <?php
     $gameAllCards = array_chunk($game_cards, 5);
     ?>

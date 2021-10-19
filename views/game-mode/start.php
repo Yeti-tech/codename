@@ -10,7 +10,5 @@ background-color: lightblue;
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2"></script>
 
-<?php require("E:\OSPanel\domains\codename\web\js\script.js");
-require("E:\OSPanel\domains\codename\web\js\ajax.js");
-require_once("E:\OSPanel\domains\codename\web\js\callTeams.js")?>
+<?php require_once("E:\OSPanel\domains\codename\web\js\callTeams.js")?>
 
