@@ -44,40 +44,6 @@ class GameModeController extends \yii\web\Controller
 
     }
 
-    public function actionShow()
-    {
-       if (isset($_POST['id'])) {
-           // $result = GameCard::find()->all();
-           $game_cards = GameCard::find()->all();
-           $i = 0;
-           foreach ($game_cards as $game_card) {
-
-               $result[$i]['card_value'] = $game_card->getWord();
-               $result[$i]['colour'] = $game_card->getColour($game_card->getCardId());
-               $i++;
-           }
-
-           return json_encode($result,JSON_UNESCAPED_UNICODE);
-       }
-        return $result[] = "Ajax failed";
-    }
-
-    public function actionTest()
-    {
-        $game_cards = GameCard::find()->all();
-            $i = 0;
-            foreach ($game_cards as $game_card) {
-
-                    $result[$i]['card_value'] = $game_card->getWord();
-                    $result[$i]['colour'] = $game_card->getColour($game_card->getCardId());
-                    $i++;
-                }
-
-        echo json_encode($result,JSON_UNESCAPED_UNICODE);
-    }
-
-
-
     public function actionNumber()
     {
         if (isset($_POST['number'])) {
@@ -143,7 +109,7 @@ class GameModeController extends \yii\web\Controller
         ]);
     }
 
-    public function actionBeforeBegin(): string
+    public function actionStart(): string
     {
         GameCard::deleteAll();
         Game::deleteAll();

@@ -83,5 +83,11 @@
 	}
 	
 	
+function addColourClass(){
+    $($('.button')).each(function (){
+        $(this).toggleClass($( this ).attr( "data-*" ));
+    });
+}
+
 	</script>
 	

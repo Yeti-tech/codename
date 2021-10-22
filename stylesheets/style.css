@@ -1,11 +1,3 @@
-body {
-  background: none repeat scroll 0 0 #71AFDF;
-  text-align: center;
-  margin-top: 50px; }
-
-span {
-  margin: 0 10px; }
-
 .btn-blue {
   background: #108FE8;
   border: 3px solid #fff;
@@ -16,8 +8,8 @@ span {
   height: 5vw;
   width: 5vw; }
   .btn-blue:hover {
-    background: #333;
-    box-shadow: 0 -2px 0 3px #1a1a1a inset, 0 5px 5px rgba(0, 0, 0, 0.17), 0 15px rgba(255, 255, 255, 0.32) inset; }
+    background: green;
+    box-shadow: 0 -2px 0 3px #007b00 inset, 0 5px 5px rgba(0, 0, 0, 0.17), 0 15px rgba(255, 255, 255, 0.32) inset; }
 
 .btn-red {
   background: #E53030;
@@ -29,8 +21,8 @@ span {
   height: 5vw;
   width: 5vw; }
   .btn-red:hover {
-    background: #333;
-    box-shadow: 0 -2px 0 3px #1a1a1a inset, 0 5px 5px rgba(0, 0, 0, 0.17), 0 15px rgba(255, 255, 255, 0.32) inset; }
+    background: green;
+    box-shadow: 0 -2px 0 3px #007b00 inset, 0 5px 5px rgba(0, 0, 0, 0.17), 0 15px rgba(255, 255, 255, 0.32) inset; }
 
 .btn-green {
   background: #0EC518;
@@ -42,8 +34,8 @@ span {
   height: 5vw;
   width: 5vw; }
   .btn-green:hover {
-    background: #333;
-    box-shadow: 0 -2px 0 3px #1a1a1a inset, 0 5px 5px rgba(0, 0, 0, 0.17), 0 15px rgba(255, 255, 255, 0.32) inset; }
+    background: green;
+    box-shadow: 0 -2px 0 3px #007b00 inset, 0 5px 5px rgba(0, 0, 0, 0.17), 0 15px rgba(255, 255, 255, 0.32) inset; }
 
 .btn-yellow {
   background: #FFC334;
@@ -55,7 +47,7 @@ span {
   height: 5vw;
   width: 5vw; }
   .btn-yellow:hover {
-    background: #333;
-    box-shadow: 0 -2px 0 3px #1a1a1a inset, 0 5px 5px rgba(0, 0, 0, 0.17), 0 15px rgba(255, 255, 255, 0.32) inset; }
+    background: green;
+    box-shadow: 0 -2px 0 3px #007b00 inset, 0 5px 5px rgba(0, 0, 0, 0.17), 0 15px rgba(255, 255, 255, 0.32) inset; }
 
 /*# sourceMappingURL=style.css.map */

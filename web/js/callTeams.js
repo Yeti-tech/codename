@@ -1,24 +1,27 @@
 <script>
-
-//begin()
-
-//function begin() {
-	//  $('#main').text(blueTeam)
-	//$('#js').text('blueTeam');
-	//if($('#js').classList.contains('active'))
-	//if (document.getElementById("js"))
-	
+function start(){
 Swal.fire({
-  title: 'Имя красной команды',
+  title: "<p class = 'title-red'>ИМЯ КРАСНОЙ КОМАНДЫ</p>",
   input: 'text',
-  closeOnConfirm: false,
+  background: 'transparent',
+  $("table").remove();
+  customClass:'my-swal-red',
+  //closeOnConfirm: false,
   inputAttributes: {
     autocapitalize: 'off'
   },
   showCancelButton: false,
   confirmButtonText: 'Ok',
-  showLoaderOnConfirm: true,
-  allowOutsideClick: () => !Swal.isLoading()
+ // showLoaderOnConfirm: true,
+  allowOutsideClick: false,
+    preConfirm: (value) => {
+    if (!value) {
+		$(".swal2-validation-message").css('background', 'transparent');
+      Swal.showValidationMessage(
+        "<p class = 'title-red'>Напишите имя команды</p>"
+      )
+    }
+	},
 }).then((result) => {
 	if (result.isConfirmed) {
 	  $.ajax({
@@ -28,16 +31,26 @@ Swal.fire({
             success: function (result) {
 				let redTeam = result
                Swal.fire({
-  title: 'Имя синей команды',
+  title: "<p class = 'title-blue'>ИМЯ СИНЕЙ КОМАНДЫ</p>",
+  background: 'transparent',
   input: 'text',
-  closeOnConfirm: false,
+  customClass:'my-swal-blue',
+  //closeOnConfirm: false,
   inputAttributes: {
-    autocapitalize: 'off'
+  autocapitalize: 'off'
   },
   showCancelButton: false,
   confirmButtonText: 'Ok',
-  showLoaderOnConfirm: true,
-  allowOutsideClick: () => !Swal.isLoading()
+ // showLoaderOnConfirm: true,
+  allowOutsideClick: false,
+      preConfirm: (value) => {
+    if (!value) {
+		 $(".swal2-validation-message").css('background', 'transparent');
+      Swal.showValidationMessage(
+        "<p class = 'title-blue'>Напишите имя команды</p>"
+      )
+    }
+	},
  }).then((result) => {
 	if (result.isConfirmed) {
 	  $.ajax({
@@ -47,22 +60,22 @@ Swal.fire({
             success: function (result) {
 			let blueTeam = result
 			Swal.fire({
-  title: 'Полетели!',
-  text: redTeam  + ' против ' + blueTeam,
+ // title: "<p class = 'title-red'>" + redTeam  + " против " + blueTeam"</p>",
+ title: "<span class = 'title-red'>" +redTeam+"</span> <span class = 'white'> против</span> <span class = 'title-blue'>"+blueTeam+ "</span>",
+//  text: redTeam  + ' против ' + blueTeam,
+	//text: "<p class = 'title-red'>redTeam  + ' против ' + blueTeam</p>",
+  background: 'transparent',
   imageUrl: '/web/images/23549.jpg',
   imageWidth: 550,
   imageHeight: 300,
   imageAlt: 'Custom image',
-   confirmButtonText: 'Ok',
+  
+   confirmButtonText: 'Полетели!',
   showLoaderOnConfirm: true,
-  allowOutsideClick: () => !Swal.isLoading()
+  allowOutsideClick: false,
  }).then((result) => {
 	if (result.isConfirmed) {
 location='/web/game-mode/game';
-			 //  $('#main').text(blueTeam)
-			 //  beginGame
-			   //whoFirst = rollDice(blueTeam, redTeam)
-			  // alert('whoFirst')
 		}
     })  
 	}
@@ -74,8 +87,6 @@ location='/web/game-mode/game';
 )
 	}
 	}) 
-
-	
-	
-
+}
+      //  $(".swal2-container.in").css('background-color', 'green)');//changes the color of the overlay
 </script> 

@@ -46,5 +46,20 @@
 		tableExists = "0";
 
 		}
-	}
+	}     public function actionShow()
+    {
+       if (isset($_POST['id'])) {
+           $game_cards = GameCard::find()->all();
+           $i = 0;
+           foreach ($game_cards as $game_card) {
+
+               $result[$i]['card_value'] = $game_card->getWord();
+               $result[$i]['colour'] = $game_card->getColour($game_card->getCardId());
+               $i++;
+           }
+
+           return json_encode($result,JSON_UNESCAPED_UNICODE);
+       }
+        return $result[] = "Ajax failed";
+    }
 </script>
