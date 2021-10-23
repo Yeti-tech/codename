@@ -21,12 +21,8 @@ Swal.fire({
 	},
 }).then((result) => {
 	if (result.isConfirmed) {
-	  $.ajax({
-            url: '/web/game-mode/red',
-            type: 'POST',
-            data: {nameRedTeam: result.value},
-            success: function (result) {
-				let redTeam = result
+				let redTeam = result.value;
+
                Swal.fire({
   title: "<p class = 'title-blue'>ИМЯ СИНЕЙ КОМАНДЫ</p>",
   background: 'transparent',
@@ -48,55 +44,41 @@ Swal.fire({
 	},
  }).then((result) => {
 	if (result.isConfirmed) {
-	  $.ajax({
-            url: '/web/game-mode/blue',
-            type: 'POST',
-            data: {nameBlueTeam: result.value},
-            success: function (result) {
-			let blueTeam = result
+			let blueTeam = result.value;
+	
 			Swal.fire({
- // title: "<p class = 'title-red'>" + redTeam  + " против " + blueTeam"</p>",
- title: "<span class = 'title-red'>" +redTeam+"</span> <span class = 'white'> против</span> <span class = 'title-blue'>"+blueTeam+ "</span>",
-//  text: redTeam  + ' против ' + blueTeam,
-	//text: "<p class = 'title-red'>redTeam  + ' против ' + blueTeam</p>",
+  title: "<span class = 'title-red'>" +redTeam+"</span> <span class = 'white'> против</span> <span class = 'title-blue'>"+blueTeam+ "</span>",
   background: 'transparent',
   imageUrl: '/web/images/23549.jpg',
   imageWidth: 550,
   imageHeight: 300,
   imageAlt: 'Custom image',
   
-   confirmButtonText: 'Полетели!',
-  showLoaderOnConfirm: true,
+  confirmButtonText: 'Полетели!',
   allowOutsideClick: false,
  }).then((result) => {
 	if (result.isConfirmed) {
-		//location='/web/game-mode/game';
-		console.log('ура');
-		$("#main").addClass('blueteam');
-		$("#main").text(blueTeam);
+		game_id = getGameId();
+		   $.ajax({
+            url: '/web/game/begin',
+			dataType: 'json',
+            type: 'POST',
+            data: {start:JSON.stringify([game_id, blueTeam, redTeam])},
+            success: function (result) {
+		//$("#main").addClass('blueteam');
+		$("#main").text(result);
+			}
+        })
 		}
     })  
 	}
  })
-			}
- }) 
-	}
-}
-)
-	}
-	}) 
-
-      //  $(".swal2-container.in").css('background-color', 'green)');//changes the color of the overlay
-	  
-	  function startGame(result){
-        $.ajax({
-            url: '/web/game-mode/main',
-            type: 'POST',
-            data: {start: result},
-            success: function (result) {
-				alert('fff');
-			}
-        })
-	  }
-	  
+ }
+			})
+ 
+ function getGameId() {
+	var game_id =  $("#special").attr('data-*');
+	return game_id;
+ }
+  
 </script> 

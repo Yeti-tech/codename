@@ -1,19 +1,9 @@
 <?php
-
 /** @var app\models\game\GameCard $game_cards */
+/** @var integer $game_id */
 
-/** @var array $result */
-
-#efede8 instead of beige
-//  background-color: #FFA07A;
-//table.fixed tr {
- //   height: 100px;
- //       background-color: cornflowerblue;
-//border: 20px solid cornflowerblue;
-// box-shadow: 0 0 4px 4px cornflowerblue;
 use yii\helpers\Html;
 ?>
-
 
 <style>
 
@@ -21,15 +11,12 @@ use yii\helpers\Html;
         background-image: url('/web/images/gory-sneg-dom.jpg'); /* Путь к фоновому изображению */
         background-color: #c7b39b; /* Цвет фона */
     }
-
-
     .lower {
         position: absolute;
         top: 360px;
         right: 300px;
         z-index: 100;
     }
-
     .blueteam {
         color: #07ceed;
         position: relative;
@@ -39,7 +26,6 @@ use yii\helpers\Html;
         font-weight: 900;
         font-size: 35px;
     }
-
     .redteam {
         color: #14c95c;
         position: relative;
@@ -49,7 +35,6 @@ use yii\helpers\Html;
         font-weight: 900;
         font-size: 35px;
     }
-
     .fixed {
         table-layout: fixed;
         width: 1100px;
@@ -58,22 +43,17 @@ use yii\helpers\Html;
         border:  20px solid #d1d2d4;
         border-radius: 15px;
         box-shadow: 0 0 4px 4px #244560;
-
     }
-
     table.fixed td {
         padding: 20px;
     }
-
     table.fixed tr {
         height: 100px;
         background-color: #d1d2d4;
     }
-
     button:active {
         padding: 0;
     }
-
     .button {
         cursor: pointer;
         height: 70px;
@@ -83,7 +63,6 @@ use yii\helpers\Html;
         align-items: center;
         border-radius: 10px;
     }
-
     .blue {
         cursor: pointer;
         height: 70px;
@@ -93,7 +72,15 @@ use yii\helpers\Html;
         align-items: center;
         border-radius: 10px;
     }
-
+    .eblue {
+        cursor: pointer;
+        height: 70px;
+        width: 160px;
+        background-color: #426d9b;
+        border: #0a73bb;
+        align-items: center;
+        border-radius: 10px;
+    }
     .red {
         cursor: pointer;
         height: 70px;
@@ -103,7 +90,15 @@ use yii\helpers\Html;
         align-items: center;
         border-radius: 10px;
     }
-
+    .ered {
+        cursor: pointer;
+        height: 70px;
+        width: 160px;
+        background-color: #4c9c5e;
+        border: #0a73bb;
+        align-items: center;
+        border-radius: 10px;
+    }
     .gray {
         cursor: pointer;
         height: 70px;
@@ -113,13 +108,15 @@ use yii\helpers\Html;
         align-items: center;
         border-radius: 10px;
     }
-
-    .button:hover {
-        background: rgba(0,0,0,0);
-        color: #012a4d;
-        box-shadow: inset 0 0 0 3px #3a7999;
+    .egray {
+        cursor: pointer;
+        height: 70px;
+        width: 160px;
+        background-color: lightslategray;
+        border: #0a73bb;
+        align-items: center;
+        border-radius: 10px;
     }
-
     .black {
         cursor: pointer;
         height: 70px;
@@ -129,7 +126,20 @@ use yii\helpers\Html;
         align-items: center;
         border-radius: 10px;
     }
-
+    .eblack {
+        cursor: pointer;
+        height: 70px;
+        width: 160px;
+        background-color: #333a3f;
+        border: #0a73bb;
+        align-items: center;
+        border-radius: 10px;
+    }
+    .button:hover {
+        background: rgba(0,0,0,0);
+        color: #012a4d;
+        box-shadow: inset 0 0 0 3px #3a7999;
+    }
     .gradient-button {
         text-decoration: none;
         display: inline-block;
@@ -157,11 +167,9 @@ use yii\helpers\Html;
     .gradient-button:hover {
         background-position: right center;
     }
-
     .active {
         color: red;
     }
-
     .number {
         text-decoration: none;
         display: inline-block;
@@ -171,37 +179,62 @@ use yii\helpers\Html;
         left: 340px;
         bottom: 190px;
 
-
         border-radius: 10px;
         font-family: 'Montserrat', sans-serif;
         text-transform: uppercase;
         letter-spacing: 2px;
         background-image: linear-gradient(to right,
         #558db4 3%, #dbdad8 61%, #6b7888 100%);
-        background-color:
-                #284d67;
+        background-color: #284d67;
         background-size: 200% auto;
         box-shadow: 0 0 20px rgba(0, 0, 0, .1);
         transition: .5s;
         margin-top: 1em;
-
-    p span {
-        font: 26px Monaco, MonoSpace;
-        height: 200px;
-        position: absolute;
-        width: 20px;
-        left: 0;
-        top: 0;
-        transform-origin: bottom center;
     }
-
+    .my-swal-red {
+        color: greenyellow;
+        font-size: x-large;
+        font-weight: 900;
+        backdrop-filter: blur(2px);
     }
-
+    .my-swal-blue {
+        color: #00ffff;
+        font-size: x-large;
+        font-weight: 900;
+        backdrop-filter: blur(2px);
+    }
+    .white {
+        color: white;
+        font-size: x-large;
+        font-weight: 700;
+    }
+    .title-red {
+        color: greenyellow;
+    }
+    .title-blue {
+        color: #00ffff;
+    }
+    .swal2-validation-message::before {
+        visibility: hidden;
+    }
+    .swal2-inputerror {
+        border-color: #0b2e13 !important;
+    }
+    .swal2-title{
+        background-color: transparent;
+    }
+    .swal2-modal{
+        background-color: transparent;
+    }
+    .swal2-image{
+        border-radius: 10px;
+        border: 3px solid #fff;
+    }
 </style>
 <link href="/stylesheets/style2.css" rel="stylesheet" />
 <span class = "btn-blue" onclick="addColourClass()"></span>
-
-
+<span id = 'special' class = 'hidden' data-*=<?= $game_id?>></span>
+<span id = 'show' class = 'hidden' data-*='yes'></span>
 <audio preload="auto">
     <source src="https://github.com/nclud/2011.beercamp.com/blob/gh-pages/audio/inception.mp3?raw=true"
             type="audio/mp3"/>
@@ -209,9 +242,7 @@ use yii\helpers\Html;
             type="audio/ogg"/>
 </audio>
 
-<button class = "button" id = "77777" onclick = "start()">новая игра</button>
-
-<p id="main" class=<?= $result['colour'] ?>><?= $result['name'] ?></p>
+<p id="main" class = 'blueteam'>Good luck</p>
 
 <p id="1" class="gradient-button" onclick="foo(this.id)">1</p>
 <p id="2" class="gradient-button" onclick="foo(this.id)">2</p>
@@ -232,7 +263,7 @@ use yii\helpers\Html;
                 <?php if ($gameCard->getDeactivate() === 1): ?>
                     <td>
                     <button
-                    <?php $class = $gameCard->getColour($gameCard->getCardId()) ?>
+                    <?php $class = $gameCard->getColour() ?>
                     id="<?= $gameCard->id ?>" class=<?= $class ?> onclick="event.preventDefault()">
 
                     <?= $gameCard->getWord();
@@ -241,7 +272,7 @@ use yii\helpers\Html;
                 <td>
                     <button
                             id="<?= $gameCard->id ?>" class="button" onclick="game(this.id)"
-                            data-*="<?= $gameCard->getColour($gameCard->getCardId()) ?>">
+                            data-*=" e<?= $gameCard->getColour() ?>">
                         <?= $gameCard->getWord() ?>
                     </button>
                 </td>
@@ -251,21 +282,16 @@ use yii\helpers\Html;
 </table>
 
 
-
-
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2"></script>
-<script src="//cdn.circletype.min."></script>
 
 <?php
-require("E:\OSPanel\domains\codename\web\js\script.js");
-require("E:\OSPanel\domains\codename\web\js\ajax.js");
-
+require(__DIR__.'/../../web/js/script.js');
+require_once(__DIR__.'/../../web/js/start.js');
 ?>
+
 
 
 

@@ -2,11 +2,10 @@
 
 namespace app\models\game;
 
-use app\models\game\GameMode;
 use Ramsey\Uuid\Uuid;
 use ReflectionClass;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
-
 
 /**
  * This is the model class for table "gameCard".
@@ -15,46 +14,57 @@ use yii\helpers\ArrayHelper;
  * @property string $word_value
  * @property string $uni_id
  * @property integer $deactivated
+ * @property string $colour_value
  */
-class GameCard extends GameMode
+
+
+class GameCard extends ActiveRecord
 {
+
+    public const PATTERN = ['red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'black', 'blue',
+        'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'gray', 'gray', 'gray',
+        'gray', 'gray', 'gray', 'gray'];
+
+    private const PATTERN_2 = ['red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'black', 'blue',
+        'blue', 'blue', 'blue', 'red', 'blue', 'blue', 'blue', 'blue', 'gray', 'gray', 'gray',
+        'gray', 'gray', 'gray', 'gray'];
 
     private $card_id;
     private $card_value;
     private $deactivate;
+    private $colour;
 
-    public function __construct(string $card_id, string $card_value, int $deactivate = 0, $config = [])
+    public function __construct(string $card_id, string $card_value, string $colour, int $deactivate = 0, $config = [])
     {
         $this->card_id = $card_id;
         $this->card_value = $card_value;
+        $this->colour= $colour;
         $this->deactivate = $deactivate;
+
         parent::__construct($config);
     }
 
-    protected static function fillGameCardTable(array $card_values): void
+    public static function fillGameCardTable(array $card_values): array
     {
         shuffle($card_values);
 
-        foreach ($card_values as $card_value) {
+        $colours = self::PATTERN;
+        shuffle($colours);
+
+        for ($i = 0; $i < 25; $i++) {
             $card_id = Uuid::uuid4()->toString();
-            $game_card = new self ($card_id, $card_value);
+            $game_card = new self ($card_id, $card_values[$i], $colours[$i]);
             $game_card->beforeSave(true);
             $game_card->save();
+            $game_cards[] = $game_card;
         }
+         return $game_cards;
     }
-
 
     protected static function getCardIds(): array
     {
         $card_ids = self::find()->select(['uni_id'])->all();
         return ArrayHelper::getColumn($card_ids, 'uni_id');
-    }
-
-
-    public function getColour($card_id): string
-    {
-        $card = ColourPattern::findOne(['uni_id' => $card_id]);
-        return $card->getColour();
     }
 
     public function deactivate(): void
@@ -68,20 +78,20 @@ class GameCard extends GameMode
         $this->uni_id = $this->card_id;
         $this->word_value = $this->card_value;
         $this->deactivated = $this->deactivate;
+        $this->colour_value = $this->colour;
 
         return parent::beforeSave($insert);
     }
-
 
     public function afterFind(): void
     {
         $this->card_id = $this->uni_id;
         $this->card_value = $this->word_value;
         $this->deactivate = $this->deactivated;
+        $this->colour = $this->colour_value;
 
         parent::afterFind();
     }
-
 
     public function getCardId(): string
     {
@@ -92,6 +102,11 @@ class GameCard extends GameMode
     public function getWord(): string
     {
         return $this->card_value;
+    }
+
+    public function getColour(): string
+    {
+        return $this->colour;
     }
 
 
@@ -134,6 +149,7 @@ class GameCard extends GameMode
         return [
             [['word_value'], 'required'],
             [['word_value'], 'string', 'max' => 250],
+            [['colour_value'], 'string', 'max' => 250],
             [['uni_id'], 'string', 'max' => 255],
             [['deactivated'], 'integer'],
         ];
@@ -147,6 +163,7 @@ class GameCard extends GameMode
             'word' => 'Word',
             'uni_id' => 'Unique',
             'deactivated' => 'Deactivated',
+            'colour' => 'Colour',
         ];
     }
 

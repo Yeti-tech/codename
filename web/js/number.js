@@ -2,18 +2,24 @@
 
     function foo(id) 
 	{
-		$('.p').unbind()
+		$('.p').unbind(),
+		game_id = getGameId(),
         $.ajax({
-            url: '/web/game-mode/number',
+			url: '/web/game-mode/number',
+			dataType: 'json',
             type: 'POST',
-            data: {number: id},
+			//data:{id:id},
+            data: {number:JSON.stringify([game_id, id])},
             success: function (result) {
-                wordsNumber = 1
-				let number = result
-				test(number)
+				 wordsNumber = 1;
+				//let number = result,
+				test(result);
 			}
-        })
+			 })
     }
+               
+			
+       
 	
 	function remove()
 	{
@@ -60,5 +66,11 @@
 						$( "#5" ).addClass('number');
 				}
 	}
+	
+	
+ function getGameId() {
+	var game_id =  $("#special").attr('data-*');
+	return game_id;
+ }
 	
 	</script>

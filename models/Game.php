@@ -19,47 +19,43 @@ use Yii;
 class Game extends \yii\db\ActiveRecord
 {
 
-    public static function getWordsNumber(): int
+    public static function newGame(): int
     {
-        return self::find()->one()->words_number;
+        $game = new self();
+        $game->words_number = null;
+        $game->current_player = 'blue';
+        $game->red_cards = '8';
+        $game->blue_cards = '9';
+        $game->save();
+        return $game->id;
     }
 
-
-    public function defineWordsNumber(): void
+    public function collectData($result): array
     {
-        $this->words_number = $_POST['number'];
-        $this->save();
-    }
+        $result['winner'] = $this->calculateProgress($result);
+        $result['turn'] = $this->defineWhoseTurn($result);
+        $result['newTeam'] = $this->defineNewTeam($result);
+        $result['number'] = $this->words_number;
+        $result['bluename'] = $this->blue_team_name;
+        $result['redname'] = $this->red_team_name;
 
-    public function saveBlueTeamName()
-    {
-        $this->blue_team_name = $_POST['nameBlueTeam'];
-        $this->save();
-    }
-
-    public function saveRedTeamName()
-    {
-        $this->red_team_name = $_POST['nameRedTeam'];
-        $this->save();
-    }
-
-
-    public function showWhoseTurn($game_record): array
-    {
-        $colour =  $game_record->current_player;
-        if($colour  === 'blue')
-        {
-            $result['name'] = $game_record->blue_team_name;
-            $result['colour'] = 'blueteam';
-            return $result;
-        }
-        $result['name'] = $game_record->red_team_name;
-        $result['colour'] = 'redteam';
         return $result;
+
+    }
+    public function defineWordsNumber(int $word_number): void
+    {
+        $this->words_number = $word_number;
+        $this->save();
     }
 
+    public function saveTeamNames(array $res)
+    {
+        $this->blue_team_name = $res[1];
+        $this->red_team_name = $res[2];
+        $this->save();
+    }
 
-    public function defineWhoseTurn(array $result): string
+    private function defineWhoseTurn(array $result): string
     {
         if ($result['colour'] === $this->current_player && $this->words_number > 1) {
             $this->words_number = --$this->words_number;
@@ -76,7 +72,6 @@ class Game extends \yii\db\ActiveRecord
             }
             $this->save();
         }
-
         return $this->current_player;
     }
 
@@ -88,12 +83,12 @@ class Game extends \yii\db\ActiveRecord
         return 'true';
     }
 
-    public function checkWinner(array $result): string
+    public function calculateProgress(array $result): string
     {
         if ($result['colour'] === 'blue') {
             $this->blue_cards = --$this->blue_cards;
             if ($this->blue_cards === 0) {
-                return 'blue won';
+                return 'blue';
             }
         }
 
@@ -119,7 +114,6 @@ class Game extends \yii\db\ActiveRecord
     {
         return 'game';
     }
-
 
     public function rules(): array
     {

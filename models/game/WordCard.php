@@ -6,7 +6,6 @@ use Ramsey\Uuid\Uuid;
 use ReflectionClass;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
-use yii\helpers\VarDumper;
 
 /**
  * This is the model class for table "wordCard".
@@ -15,7 +14,7 @@ use yii\helpers\VarDumper;
  * @property string $uni_id
  * @property string $word_value
  */
-class WordCard extends ActiveRecord implements GameInterface
+class WordCard extends ActiveRecord
 {
 
     private $card_id;
@@ -37,15 +36,12 @@ class WordCard extends ActiveRecord implements GameInterface
         $newWordCard->save();
     }
 
-
-
     public static function prepareCardValues(): array
     {
         $card_values = self::find()->select(['word_value', 'uni_id'])->all();
         return array_rand(array_flip(ArrayHelper::getColumn
         ($card_values, 'word_value')), 25);
     }
-
 
     public function beforeSave($insert): bool
     {
@@ -69,12 +65,10 @@ class WordCard extends ActiveRecord implements GameInterface
         return $this->card_id;
     }
 
-
     public function getWord(): string
     {
         return $this->word;
     }
-
 
     /**
      * 'Instance' and 'Instantiate' allows using static functions of the class without
