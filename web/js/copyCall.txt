@@ -95,6 +95,6 @@ function changeTeam(blueTeam){
 		}
 	}
 	
-	
+	 td.appendChild(document.createTextNode("Cell " + i + "," + j));
 
 </script> 

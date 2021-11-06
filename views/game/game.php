@@ -1,7 +1,7 @@
 <?php
 /** @var app\models\game\GameCard $game_cards */
-/** @var integer $game_id */
 
+use yii\helpers\Url;
 use yii\helpers\Html;
 ?>
 
@@ -11,11 +11,13 @@ use yii\helpers\Html;
         background-image: url('/web/images/gory-sneg-dom.jpg'); /* Путь к фоновому изображению */
         background-color: #c7b39b; /* Цвет фона */
     }
-    .lower {
+    .newGame {
+        letter-spacing: 1px;
         position: absolute;
-        top: 360px;
-        right: 300px;
-        z-index: 100;
+        top: 80px;
+        left: 80px;
+        color: black;
+        font-weight: 900;
     }
     .blueteam {
         color: #07ceed;
@@ -26,7 +28,7 @@ use yii\helpers\Html;
         font-weight: 900;
         font-size: 35px;
     }
-    .redteam {
+    .greenteam {
         color: #14c95c;
         position: relative;
         left: 450px;
@@ -81,7 +83,7 @@ use yii\helpers\Html;
         align-items: center;
         border-radius: 10px;
     }
-    .red {
+    .green {
         cursor: pointer;
         height: 70px;
         width: 160px;
@@ -90,7 +92,7 @@ use yii\helpers\Html;
         align-items: center;
         border-radius: 10px;
     }
-    .ered {
+    .egreen {
         cursor: pointer;
         height: 70px;
         width: 160px;
@@ -168,7 +170,7 @@ use yii\helpers\Html;
         background-position: right center;
     }
     .active {
-        color: red;
+        color: green;
     }
     .number {
         text-decoration: none;
@@ -191,7 +193,7 @@ use yii\helpers\Html;
         transition: .5s;
         margin-top: 1em;
     }
-    .my-swal-red {
+    .my-swal-green {
         color: greenyellow;
         font-size: x-large;
         font-weight: 900;
@@ -208,7 +210,7 @@ use yii\helpers\Html;
         font-size: x-large;
         font-weight: 700;
     }
-    .title-red {
+    .title-green {
         color: greenyellow;
     }
     .title-blue {
@@ -233,24 +235,37 @@ use yii\helpers\Html;
 </style>
 <link href="/stylesheets/style2.css" rel="stylesheet" />
 <span class = "btn-blue" onclick="addColourClass()"></span>
-<span id = 'special' class = 'hidden' data-*=<?= $game_id?>></span>
+
+<button id = "newGame" onclick = "gameStart(this.id)" class = "newGame button gray">Новая игра</button>
 <span id = 'show' class = 'hidden' data-*='yes'></span>
+
+<?php
+/**
+<body onload="gameStart()">
+<a href="<?php Url::to(['game/game']);?>">новая игра</a>
+
 <audio preload="auto">
     <source src="https://github.com/nclud/2011.beercamp.com/blob/gh-pages/audio/inception.mp3?raw=true"
             type="audio/mp3"/>
     <source src="https://github.com/nclud/2011.beercamp.com/blob/gh-pages/audio/inception.ogg?raw=true"
             type="audio/ogg"/>
 </audio>
+ */
+?>
 
-<p id="main" class = 'blueteam'>Good luck</p>
+<p id="main" class = 'blueteam'>Hello!</p>
 
-<p id="1" class="gradient-button" onclick="foo(this.id)">1</p>
-<p id="2" class="gradient-button" onclick="foo(this.id)">2</p>
-<p id="3" class="gradient-button" onclick="foo(this.id)">3</p>
-<p id="4" class="gradient-button" onclick="foo(this.id)">4</p>
-<p id="5" class="gradient-button" onclick="foo(this.id)">5</p>
+<p id="1" class="gradient-button" onclick="guessNumber(this.id)">1</p>
+<p id="2" class="gradient-button" onclick="guessNumber(this.id)">2</p>
+<p id="3" class="gradient-button" onclick="guessNumber(this.id)">3</p>
+<p id="4" class="gradient-button" onclick="guessNumber(this.id)">4</p>
+<p id="5" class="gradient-button" onclick="guessNumber(this.id)">5</p>
 
-<table class=fixed>
+<span id='myDynamicTable'></span>
+
+<?php
+/**
+<table id = table_id class=fixed hidden="hidden">
 
     <?php
     $gameAllCards = array_chunk($game_cards, 5);
@@ -272,7 +287,7 @@ use yii\helpers\Html;
                 <td>
                     <button
                             id="<?= $gameCard->id ?>" class="button" onclick="game(this.id)"
-                            data-*=" e<?= $gameCard->getColour() ?>">
+                            data-*=" e<?= $gameCard->getColour() ?>"  data-colour="<?= $gameCard->getColour() ?>">
                         <?= $gameCard->getWord() ?>
                     </button>
                 </td>
@@ -280,7 +295,8 @@ use yii\helpers\Html;
         </tr>
     <?php endforeach; ?>
 </table>
-
+ */
+?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
@@ -288,8 +304,10 @@ use yii\helpers\Html;
 <script src="//cdn.jsdelivr.net/npm/sweetalert2"></script>
 
 <?php
-require(__DIR__.'/../../web/js/script.js');
-require_once(__DIR__.'/../../web/js/start.js');
+//require(__DIR__.'/../../web/js/script.js');
+//require_once(__DIR__.'/../../web/js/startGame.js');
+//require_once(__DIR__.'/../../web/js/jsOnlyStartGame.js');
+require(__DIR__.'/../../web/js/JSonly.js');
 ?>
 
 

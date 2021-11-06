@@ -21,11 +21,11 @@ use yii\helpers\ArrayHelper;
 class GameCard extends ActiveRecord
 {
 
-    public const PATTERN = ['red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'black', 'blue',
+    public const PATTERN = ['green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'black', 'blue',
         'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'gray', 'gray', 'gray',
         'gray', 'gray', 'gray', 'gray'];
 
-    private const PATTERN_2 = ['red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'black', 'blue',
+    private const PATTERN_2 = ['green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'black', 'blue',
         'blue', 'blue', 'blue', 'red', 'blue', 'blue', 'blue', 'blue', 'gray', 'gray', 'gray',
         'gray', 'gray', 'gray', 'gray'];
 
@@ -98,7 +98,6 @@ class GameCard extends ActiveRecord
         return $this->card_id;
     }
 
-
     public function getWord(): string
     {
         return $this->card_value;
@@ -109,24 +108,20 @@ class GameCard extends ActiveRecord
         return $this->colour;
     }
 
-
     public function getDeactivate()
     {
         return $this->deactivate;
     }
-
 
     public function setDeactivate($int)
     {
         return $this->deactivate = $int;
     }
 
-
     public static function instance($refresh = false): self
     {
         return self::instantiate([]);
     }
-
 
     public static function instantiate($row)
     {
@@ -137,12 +132,10 @@ class GameCard extends ActiveRecord
         return $object;
     }
 
-
     public static function tableName(): string
     {
         return 'gameCard';
     }
-
 
     public function rules(): array
     {
@@ -155,7 +148,6 @@ class GameCard extends ActiveRecord
         ];
     }
 
-
     public function attributeLabels(): array
     {
         return [
@@ -166,5 +158,4 @@ class GameCard extends ActiveRecord
             'colour' => 'Colour',
         ];
     }
-
 }

@@ -9,11 +9,11 @@ use Yii;
  *
  * @property int $id
  * @property string|null $blue_cards
- * @property string|null $red_cards
+ * @property string|null $green_cards
  * @property string|null $current_player
  * @property integer|null $words_number
  * @property string|null $blue_team_name
- * @property string|null $red_team_name
+ * @property string|null $green_team_name
  *
  */
 class Game extends \yii\db\ActiveRecord
@@ -24,7 +24,7 @@ class Game extends \yii\db\ActiveRecord
         $game = new self();
         $game->words_number = null;
         $game->current_player = 'blue';
-        $game->red_cards = '8';
+        $game->green_cards = '8';
         $game->blue_cards = '9';
         $game->save();
         return $game->id;
@@ -37,7 +37,7 @@ class Game extends \yii\db\ActiveRecord
         $result['newTeam'] = $this->defineNewTeam($result);
         $result['number'] = $this->words_number;
         $result['bluename'] = $this->blue_team_name;
-        $result['redname'] = $this->red_team_name;
+        $result['greenname'] = $this->green_team_name;
 
         return $result;
 
@@ -51,7 +51,7 @@ class Game extends \yii\db\ActiveRecord
     public function saveTeamNames(array $res)
     {
         $this->blue_team_name = $res[1];
-        $this->red_team_name = $res[2];
+        $this->green_team_name = $res[2];
         $this->save();
     }
 
@@ -63,10 +63,10 @@ class Game extends \yii\db\ActiveRecord
             return $this->current_player;
         }
 
-        if ($result['colour'] !== $this->current_player || $this->words_number = 1) {
+        if ($result['colour'] !== $this->current_player || $this->words_number === 1) {
             $this->words_number = null;
-            if ($this->current_player !== 'red') {
-                $this->current_player = 'red';
+            if ($this->current_player !== 'green') {
+                $this->current_player = 'green';
             } else {
                 $this->current_player = 'blue';
             }
@@ -92,18 +92,18 @@ class Game extends \yii\db\ActiveRecord
             }
         }
 
-        if ($result['colour'] === 'red') {
-            $this->red_cards = --$this->red_cards;
-            if ($this->red_cards === 0) {
-                return 'red';
+        if ($result['colour'] === 'green') {
+            $this->green_cards = --$this->green_cards;
+            if ($this->green_cards === 0) {
+                return 'green';
             }
         }
 
         if ($result['colour'] === 'black') {
-            if ($this->current_player === 'red') {
+            if ($this->current_player === 'green') {
                 return 'blue';
             }
-            return 'red';
+            return 'green';
         }
         $this->save();
         return false;
@@ -119,9 +119,9 @@ class Game extends \yii\db\ActiveRecord
     {
         return [
             [['current_player'], 'string', 'max' => 250],
-            [['words_number', 'blue_cards', 'red_cards'], 'integer'],
+            [['words_number', 'blue_cards', 'green_cards'], 'integer'],
             [['blue_team_name'], 'string', 'max' => 255],
-            [['red_team_name'], 'string', 'max' => 255],
+            [['green_team_name'], 'string', 'max' => 255],
         ];
     }
 
@@ -130,11 +130,11 @@ class Game extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'blue_cards' => 'blue cards',
-            'red_cards' => 'red cards',
+            'green_cards' => 'green cards',
             'current_player' => 'Current Player',
             'words_number' => 'Words Number',
             'blue_team_name' => 'BlueTeamName',
-            'red_team_name' => 'RedTeamName',
+            'green_team_name' => 'GreenTeamName',
         ];
     }
 }

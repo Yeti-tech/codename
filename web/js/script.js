@@ -1,25 +1,106 @@
-	<script>
+<script>
+
+function startGame(){
+	
+Swal.fire({
+  title: "<p class = 'title-green'>ИМЯ ЗЕЛЕНОЙ КОМАНДЫ</p>",
+  input: 'text',
+  background: 'transparent',
+  customClass:'my-swal-green',
+  inputAttributes: {
+    autocapitalize: 'off'
+  },
+  showCancelButton: false,
+  confirmButtonText: 'Ok',
+  allowOutsideClick: false,
+    preConfirm: (value) => {
+    if (!value) {
+		$(".swal2-validation-message").css('background', 'transparent');
+      Swal.showValidationMessage(
+        "<p class = 'title-green'>Напишите имя команды</p>"
+      )
+    }
+	},
+}).then((result) => {
+	if (result.isConfirmed) {
+				let greenTeam = result.value;
+
+               Swal.fire({
+  title: "<p class = 'title-blue'>ИМЯ СИНЕЙ КОМАНДЫ</p>",
+  background: 'transparent',
+  input: 'text',
+  customClass:'my-swal-blue',
+  inputAttributes: {
+  autocapitalize: 'off'
+  },
+  showCancelButton: false,
+  confirmButtonText: 'Ok',
+  allowOutsideClick: false,
+      preConfirm: (value) => {
+    if (!value) {
+		 $(".swal2-validation-message").css('background', 'transparent');
+      Swal.showValidationMessage(
+        "<p class = 'title-blue'>Напишите имя команды</p>"
+      )
+    }
+	},
+ }).then((result) => {
+	if (result.isConfirmed) {
+			let blueTeam = result.value;
+	
+			Swal.fire({
+  title: "<span class = 'title-green'>" +greenTeam+"</span> <span class = 'white'> против</span> <span class = 'title-blue'>"+blueTeam+ "</span>",
+  background: 'transparent',
+  imageUrl: '/web/images/23549.jpg',
+  imageWidth: 550,
+  imageHeight: 300,
+  imageAlt: 'Custom image',
+  
+  confirmButtonText: 'Полетели!',
+  allowOutsideClick: false,
+ }).then((result) => {
+	if (result.isConfirmed) {
+		game_id = getGameId();
+		   $.ajax({
+            url: '/web/game/begin',
+			dataType: 'json',
+            type: 'POST',
+            data: {start:JSON.stringify([game_id, blueTeam, greenTeam])},
+            success: function (result) {
+		//$("#main").addClass('blueteam');
+		$("#main").text(result);
+		revealTable();
+			}
+        })
+		}
+    })  
+	}
+ })
+ }
+			})
+}
+
 
     function game(id) 
 	{
+	      
 		if (checkWordsNumber()){
+			$("#" + id).attr("disabled","disabled");
 			game_id = getGameId(),
 					$.ajax({
                     url: '/web/game/card',
 					dataType: 'json',
                     type: 'POST',
 					  data: {data:JSON.stringify([game_id, id])},
-                  //  data: {id: id},
                     success: function (result) {
-                       // var obj = JSON.parse(result);
-						//console.log(result.colour);
+                     
 						switch(result.colour)
 						{
 							case 'blue':
 							$("#" + id).addClass('blue');
 							break;
-							case 'red':
-							$("#" + id).addClass('red');
+							case 'green':
+							$("#" + id).addClass('green');
 							break;
 							case 'black':
 							$("#" + id).addClass('black');
@@ -30,7 +111,7 @@
 						}
                        
                         if (result.winner) {
-							showWinner(result.winner, result.redname, result.bluename);
+							showWinner(result.winner, result.greenname, result.bluename);
                         }
 						
                         if (result.newTeam === 'true') {
@@ -43,15 +124,17 @@
 						}
 
                         if (result.turn === 'blue') {
-                            $('#main').removeClass('redteam');
+                            $('#main').removeClass('greenteam');
                             $('#main').addClass('blueteam');
 							$('#main').text(result.bluename);
 
                         } else {
                             $('#main').removeClass('blueteam');
-                           $('#main').addClass('redteam');
-							$('#main').text(result.redname);
+                           $('#main').addClass('greenteam');
+							$('#main').text(result.greenname);
                         }
+						
+						 $("#" + id).removeClass("button");
                 }
             })
     }
@@ -59,16 +142,11 @@
 	
 	function checkWordsNumber()
 	{
-		//var wordsNumber 
-		//alert(wordsNumber)
+		
 		if (typeof wordsNumber === 'undefined') {
 		wordsNumber = 0
 		}
 
-		//if(wordsNumber === undefined )
-		//{
-		//	wordsNumber = 0
-		//}
 		if (wordsNumber === 0) {
 		Swal.fire('Cначала выберите число слов')
 		return false
@@ -76,10 +154,10 @@
 	return true
 	}
 	
-	function showWinner(winner, redname, bluename){
+	function showWinner(winner, greenname, bluename){
 		
-		if (winner === 'red') {
-								Swal.fire(redname  + " " + "всех сделали!!!!")
+		if (winner === 'green') {
+								Swal.fire(greenname  + " " + "всех сделали!!!!")
                             } else {	
                                 Swal.fire(bluename  + " " + "  всех сделали!!!!")
                             }
@@ -89,7 +167,6 @@
 function addColourClass(){
 
 	if ($('#show').length) {
-		console.log('fgg');
 	$($('.button')).each(function (){
         $(this).addClass($( this ).attr( "data-*" ));
 		$('#show').remove();
@@ -175,6 +252,11 @@ function addColourClass(){
  function getGameId() {
 	var game_id =  $("#special").attr('data-*');
 	return game_id;
+ }
+ 
+ function revealTable()
+ {
+	 $("#table_id").removeAttr("hidden");
  }
 	</script>
 	

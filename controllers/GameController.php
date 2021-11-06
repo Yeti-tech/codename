@@ -16,7 +16,7 @@ class GameController extends \yii\web\Controller
 
         return $this->render('game', [
             'game_cards' => $game_cards,
-            'game_id'  => $game_id,
+            'game_id' => $game_id,
         ]);
     }
 
@@ -54,7 +54,7 @@ class GameController extends \yii\web\Controller
 
             $card = GameCard::find()->where(['id' => $res[1]])->one();
             $card->deactivate();
-            $result['colour']  = $card->getColour();
+            $result['colour'] = $card->getColour();
 
 
             $game_record = Game::find()->where(['id' => $res[0]])->one();
@@ -65,4 +65,30 @@ class GameController extends \yii\web\Controller
         }
         return json_encode($result);
     }
+
+    public function actionShow()
+    {
+        if (isset($_POST['id'])) {
+
+             $card_values = WordCard::prepareCardValues();
+              $game_cards = GameCard::fillGameCardTable($card_values);
+              $i = 0;
+              foreach ($game_cards as $game_card) {
+
+                $result[$i]['card_value'] = $game_card->getWord();
+                $result[$i]['card_id'] = $game_card->getCardId();
+                $result[$i]['colour'] = $game_card->getColour($game_card->getCardId());
+                $i++;
+             }
+
+              return json_encode($result,JSON_UNESCAPED_UNICODE);
+        }
+             return $result[] = "Ajax failed";
+        }
 }
+
+
+
+
+
+

@@ -5,7 +5,7 @@ namespace app\models\game;
 
 use yii\db\ActiveRecord;
 
-class ImageCard extends ActiveRecord implements GameInterface
+class ImageCard extends ActiveRecord
 {
 
     /**
