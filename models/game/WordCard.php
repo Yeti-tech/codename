@@ -2,7 +2,6 @@
 
 namespace app\models\game;
 
-use Ramsey\Uuid\Uuid;
 use ReflectionClass;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
@@ -11,41 +10,45 @@ use yii\helpers\ArrayHelper;
  * This is the model class for table "wordCard".
  *
  * @property int $id
- * @property string $uni_id
  * @property string $word_value
  */
 class WordCard extends ActiveRecord
 {
-
-    private $card_id;
     private $word;
 
-    public function __construct(string $card_id, string $word, $config = [])
+    public function __construct(string $word, $config = [])
     {
-        $this->card_id = $card_id;
         $this->word = $word;
         parent::__construct($config);
-    }
-
-
-    public static function newWordCard($word)
-    {
-        $card_id = Uuid::uuid4()->toString();
-        $newWordCard = new WordCard($card_id, $word);
-        $newWordCard->beforeSave(true);
-        $newWordCard->save();
+        $this->beforeSave(true);
     }
 
     public static function prepareCardValues(): array
     {
-        $card_values = self::find()->select(['word_value', 'uni_id'])->all();
+        $card_values = self::find()->select(['word_value', 'id'])->all();
         return array_rand(array_flip(ArrayHelper::getColumn
         ($card_values, 'word_value')), 25);
     }
 
+    public static function addNewWords(): void
+    {
+        $needle = array("=", "+", "'", "-", ":", ",", ".", "?", ")", "(", "0", "1", "2", "3", "4", "5", "6", "7",
+            "8", "9", "!", "@", '"', "#", "%", "№", ";", "^", "&", "*", "-", "`", "~", "{", "}", "'", "\\", "|",
+            "/", "<", ">", "[", "]", "\\n", "\\t", "\\n1", "\\n2", "\\n3", "\\n4", "n", "t");
+
+        $newWords = explode(" ", str_replace($needle, " ", $_POST['words']));
+
+        foreach ($newWords as $word) {
+            $word = trim($word);
+            if ($word !== "" && iconv_strlen($word) <= 11) {
+                $wordCard = new self($word);
+                $wordCard->save();
+            }
+        }
+    }
+
     public function beforeSave($insert): bool
     {
-        $this->uni_id = $this->card_id;
         $this->word_value = $this->word;
 
         return parent::beforeSave($insert);
@@ -53,34 +56,15 @@ class WordCard extends ActiveRecord
 
     public function afterFind(): void
     {
-        $this->card_id = $this->uni_id;
         $this->word = $this->word_value;
 
         parent::afterFind();
     }
 
-
-    public function getCardId(): string
-    {
-        return $this->card_id;
-    }
-
-    public function getWord(): string
-    {
-        return $this->word;
-    }
-
-    /**
-     * 'Instance' and 'Instantiate' allows using static functions of the class without
-     * having to call constructor, returns instance of the class
-     * @param bool $refresh
-     * @return WordCard
-     */
     public static function instance($refresh = false): self
     {
         return self::instantiate([]);
     }
-
 
     public static function instantiate($row)
     {
@@ -91,31 +75,25 @@ class WordCard extends ActiveRecord
         return $object;
     }
 
-
     public static function tableName(): string
     {
         return 'wordCard';
     }
-
 
     public function rules(): array
     {
         return [
             [['word_value'], 'required'],
             [['word_value'], 'string', 'max' => 250],
-            [['uni_id'], 'string'],
-            [['uni_id'], 'required'],
             [['word_value'], 'unique'],
         ];
     }
-
 
     public function attributeLabels(): array
     {
         return [
             'id' => 'ID',
             'word_value' => 'Word',
-            'uni_id' => 'UNIQUE',
         ];
     }
 

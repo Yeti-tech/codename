@@ -1,4 +1,5 @@
 <?php
+
 /** @var app\models\game\GameCard $game_cards */
 //#426d9b
 ?>
@@ -20,29 +21,13 @@
         overflow: hidden;
     }
 
-    .form {
-        position:absolute;
-        left:600px; right: 0;
-        top: 100px; bottom: 0;
-        max-width: 650px;
-        max-height: 350px;
-        padding: 20px;
-        background: #fffdee;
-        border: 10px solid transparent;
-        border-image: 10 repeating-linear-gradient(135deg, #C42061, #C42061 10px, transparent 10px, transparent 20px, #FBCFDF 20px, #FBCFDF 30px, transparent 30px, transparent 40px);
-        color: #605756;
-
-    }
-
     .btn {
-        position: absolute;
-        left: 100px;
+        position: relative;
     }
-
     .newGame {
         letter-spacing: 1px;
         position: absolute;
-        top: 220px;
+        top: 80px;
         left: 30px;
         color: black;
         width: 205px;
@@ -54,42 +39,6 @@
         background: #46A438;
         padding: 20px;
     }
-
-
-    .confirm {
-        letter-spacing: 1px;
-        position: absolute;
-        top: 220px;
-        left: 30px;
-        color: black;
-        width: 205px;
-        height: 80px;
-        align-items: center;
-        font-weight: 900;
-        text-decoration: none;
-        user-select: none;
-        background: #46A438;
-        padding: 20px;
-    }
-
-
-    .confirmNewLibrary {
-        letter-spacing: 1px;
-        position: absolute;
-        top: 220px;
-        left: 130px;
-        color: black;
-        width: 205px;
-        height: 80px;
-        align-items: center;
-        font-weight: 900;
-        text-decoration: none;
-        user-select: none;
-        background: #46A438;
-        padding: 20px;
-    }
-
-
 
     .newGame:hover { background: #74D964;
         padding: 20px;
@@ -98,7 +47,7 @@
     .newDuetGame {
         letter-spacing: 1px;
         position: absolute;
-        top: 320px;
+        top: 180px;
         left: 30px;
         width: 205px;
         height: 80px;
@@ -118,7 +67,7 @@
     .uploadNewWords {
         letter-spacing: 1px;
         position: absolute;
-        top: 420px;
+        top: 280px;
         left: 30px;
         width: 205px;
         height: 80px;
@@ -140,9 +89,9 @@
 
     .blueteam {
         color: #07ceed;
-        position: absolute;
-        left: 800px;
-        top: 20px;
+        position: relative;
+        left: 450px;
+        bottom: 155px;
         font-family: sans-serif;
         font-weight: 900;
         font-size: 35px;
@@ -174,9 +123,9 @@
     }
     .greenteam {
         color: #14c95c;
-        position: absolute;
-        left: 800px;
-        top: 20px;
+        position: relative;
+        left: 450px;
+        bottom: 155px;
         font-family: sans-serif;
         font-weight: 900;
         font-size: 35px;
@@ -229,7 +178,7 @@
     .button {
         cursor: pointer;
         height: 70px;
-        width: 180px;
+        width: 160px;
         background-color: beige;
         border: #0a73bb;
         align-items: center;
@@ -241,7 +190,7 @@
     .blue {
         cursor: pointer;
         height: 70px;
-        width: 180px;
+        width: 160px;
         background-color: #426d9b;
         border: #0a73bb;
         align-items: center;
@@ -253,7 +202,7 @@
     .green {
         cursor: pointer;
         height: 70px;
-        width: 180px;
+        width: 160px;
         background-color: #4c9c5e;
         border: #0a73bb;
         align-items: center;
@@ -265,7 +214,7 @@
     .gray {
         cursor: pointer;
         height: 70px;
-        width: 180px;
+        width: 160px;
         background-color: lightslategray;
         border: #0a73bb;
         align-items: center;
@@ -277,7 +226,7 @@
     .black {
         cursor: pointer;
         height: 70px;
-        width: 180px;
+        width: 160px;
         background-color: #333a3f;
         border: #0a73bb;
         align-items: center;
@@ -297,8 +246,8 @@
         color: white;
         padding: 20px 30px;
         position: relative;
-        left: 341.5px;
-        top: 10px;
+        left: 340px;
+        bottom: 190px;
 
         border-radius: 10px;
         font-family: 'Montserrat', sans-serif;
@@ -324,8 +273,8 @@
         color: white;
         padding: 20px 30px;
         position: relative;
-        left: 341.5px;
-        top: 10px;
+        left: 340px;
+        bottom: 190px;
 
         border-radius: 10px;
         font-family: 'Montserrat', sans-serif;
@@ -408,9 +357,58 @@
     }
     .title-green {
         color: greenyellow;
-
+        text-shadow:
+                -0   -2px 1px #000000,
+                0   -2px 1px #000000,
+                -0    2px 1px #000000,
+                0    2px 1px #000000,
+                -2px -0   1px #000000,
+                2px -0   1px #000000,
+                -2px  0   1px #000000,
+                2px  0   1px #000000,
+                -1px -2px 1px #000000,
+                1px -2px 1px #000000,
+                -1px  2px 1px #000000,
+                1px  2px 1px #000000,
+                -2px -1px 1px #000000,
+                2px -1px 1px #000000,
+                -2px  1px 1px #000000,
+                2px  1px 1px #000000,
+                -2px -2px 1px #000000,
+                2px -2px 1px #000000,
+                -2px  2px 1px #000000,
+                2px  2px 1px #000000,
+                -2px -2px 1px #000000,
+                2px -2px 1px #000000,
+                -2px  2px 1px #000000,
+                2px  2px 1px #000000;
     }
     .title-blue {
+        text-shadow:
+                -0   -2px 1px #000000,
+                0   -2px 1px #000000,
+                -0    2px 1px #000000,
+                0    2px 1px #000000,
+                -2px -0   1px #000000,
+                2px -0   1px #000000,
+                -2px  0   1px #000000,
+                2px  0   1px #000000,
+                -1px -2px 1px #000000,
+                1px -2px 1px #000000,
+                -1px  2px 1px #000000,
+                1px  2px 1px #000000,
+                -2px -1px 1px #000000,
+                2px -1px 1px #000000,
+                -2px  1px 1px #000000,
+                2px  1px 1px #000000,
+                -2px -2px 1px #000000,
+                2px -2px 1px #000000,
+                -2px  2px 1px #000000,
+                2px  2px 1px #000000,
+                -2px -2px 1px #000000,
+                2px -2px 1px #000000,
+                -2px  2px 1px #000000,
+                2px  2px 1px #000000;
         color: #00ffff;
     }
     .swal2-validation-message::before {
@@ -433,15 +431,13 @@
     }
 
 
-
-
 </style>
 <link href="/stylesheets/style2.css" rel="stylesheet" />
 <span class = "btn btn-blue" onclick="addColourClass()"></span>
 
 <button id = "newGame" onclick = "gameStart(this.id)" class = "newGame">Новая игра</button>
 <button id = "duet" onclick = "gameStart(this.id)" class = "newDuetGame">Игра Дуэт</button>
-<button id = "upload" onclick = "addWords(this.id)" class = "uploadNewWords">Добавить слова</button>
+<button id = "upload" onclick = "gameStart(this.id)" class = "uploadNewWords">Добавить слова</button>
 <p id="main" class = 'blueteam' >Codenames</p>
 
 <p id="1" class="gradient-button" onclick="guessNumber(this.id)">1</p>
@@ -451,7 +447,6 @@
 <p id="5" class="gradient-button" onclick="guessNumber(this.id)">5</p>
 
 <span id='myDynamicTable'></span>
-<span id='myForm'></span>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
