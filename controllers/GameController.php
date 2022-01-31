@@ -5,15 +5,13 @@ namespace app\controllers;
 use app\models\game\GameCard;
 use app\models\game\WordCard;
 
+
 class GameController extends \yii\web\Controller
 {
 
     public function actionGame(): string
     {
-        $game_cards = [];
-        return $this->render('game', [
-            'game_cards' => $game_cards,
-        ]);
+        return $this->render('game');
     }
 
     public function actionShow()
@@ -26,7 +24,6 @@ class GameController extends \yii\web\Controller
             foreach ($game_cards as $game_card) {
                 $result[$i]['card_value'] = $game_card->getWord();
                 $result[$i]['card_id'] = $game_card->getCardId();
-                $result[$i]['colour'] = $game_card->getColour();
                 $i++;
             }
             return json_encode($result, JSON_UNESCAPED_UNICODE);
@@ -34,7 +31,7 @@ class GameController extends \yii\web\Controller
         return $result[] = "Ajax failed";
     }
 
-    public function actionAjax()
+    public function actionNewWords()
     {
         if (isset($_POST['words'])) {
             WordCard::addNewWords();

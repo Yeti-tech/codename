@@ -1,0 +1,652 @@
+
+
+.form {
+    position:absolute;
+    left:600px; right: 0;
+    top: 100px; bottom: 0;
+    max-width: 650px;
+    max-height: 350px;
+    padding: 20px;
+    background: #fffdee;
+    border: 10px solid transparent;
+    border-image: 10 repeating-linear-gradient(135deg, #C42061, #C42061 10px, transparent 10px, transparent 20px, #FBCFDF 20px, #FBCFDF 30px, transparent 30px, transparent 40px);
+    color: #605756;
+}
+
+.btn {
+    position: absolute;
+    left: 100px;
+}
+
+
+.new-game {
+    letter-spacing: 1px;
+    position: absolute;
+    top: 220px;
+    left: 30px;
+    color: black;
+    width: 205px;
+    height: 80px;
+    align-items: center;
+    font-weight: 900;
+    text-decoration: none;
+    user-select: none;
+    background: #46A438;
+    padding: 20px;
+}
+
+
+.confirm {
+    letter-spacing: 1px;
+    position: absolute;
+    top: 220px;
+    left: 30px;
+    color: black;
+    width: 205px;
+    height: 80px;
+    align-items: center;
+    font-weight: 900;
+    text-decoration: none;
+    user-select: none;
+    background: #46A438;
+    padding: 20px;
+}
+
+
+.confirm-new-library {
+    letter-spacing: 1px;
+    position: absolute;
+    top: 220px;
+    left: 130px;
+    color: black;
+    width: 205px;
+    height: 80px;
+    align-items: center;
+    font-weight: 900;
+    text-decoration: none;
+    user-select: none;
+    background: #46A438;
+    padding: 20px;
+}
+
+
+
+.new-game:hover { background: #74D964;
+    padding: 20px;
+}
+
+.new-duet-game {
+    letter-spacing: 1px;
+    position: absolute;
+    top: 320px;
+    left: 30px;
+    width: 205px;
+    height: 80px;
+    align-items: center;
+    color: black;
+    font-weight: 900;
+    text-decoration: none;
+    user-select: none;
+    background: #36ACBA;
+    padding: 20px;
+}
+
+.new-duet-game:hover { background: #5BE6F7;
+    padding: 20px;
+}
+
+.rules {
+    letter-spacing: 1px;
+    position: absolute;
+    top: 420px;
+    left: 30px;
+    width: 205px;
+    height: 80px;
+    line-height: 25px;
+    align-items: center;
+    color: black;
+    font-weight: 900;
+    vertical-align: middle;
+    font-size: small;
+    text-decoration: none;
+    user-select: none;
+    background: #D8D85D;
+    padding: 20px;
+}
+
+.rules:hover { background: #F3F375;
+    padding: 20px;
+}
+
+.blueteam {
+    color: #07ceed;
+    position: absolute;
+    left: 700px;
+    top: 10px;
+    letter-spacing: 5px;
+    font-family: sans-serif;
+    font-weight: 900;
+    font-size: 35px;
+    text-shadow:
+            -0   -2px 1px #000000,
+            0   -2px 1px #000000,
+            -0    2px 1px #000000,
+            0    2px 1px #000000,
+            -2px -0   1px #000000,
+            2px -0   1px #000000,
+            -2px  0   1px #000000,
+            2px  0   1px #000000,
+            -1px -2px 1px #000000,
+            1px -2px 1px #000000,
+            -1px  2px 1px #000000,
+            1px  2px 1px #000000,
+            -2px -1px 1px #000000,
+            2px -1px 1px #000000,
+            -2px  1px 1px #000000,
+            2px  1px 1px #000000,
+            -2px -2px 1px #000000,
+            2px -2px 1px #000000,
+            -2px  2px 1px #000000,
+            2px  2px 1px #000000,
+            -2px -2px 1px #000000,
+            2px -2px 1px #000000,
+            -2px  2px 1px #000000,
+            2px  2px 1px #000000;
+}
+.greenteam {
+    color: #14c95c;
+    position: absolute;
+    left: 700px;
+    top: 10px;
+    letter-spacing: 5px;
+    font-family: sans-serif;
+    font-weight: 900;
+    font-size: 35px;
+    text-shadow:
+            -0   -2px 1px #000000,
+            0   -2px 1px #000000,
+            -0    2px 1px #000000,
+            0    2px 1px #000000,
+            -2px -0   1px #000000,
+            2px -0   1px #000000,
+            -2px  0   1px #000000,
+            2px  0   1px #000000,
+            -1px -2px 1px #000000,
+            1px -2px 1px #000000,
+            -1px  2px 1px #000000,
+            1px  2px 1px #000000,
+            -2px -1px 1px #000000,
+            2px -1px 1px #000000,
+            -2px  1px 1px #000000,
+            2px  1px 1px #000000,
+            -2px -2px 1px #000000,
+            2px -2px 1px #000000,
+            -2px  2px 1px #000000,
+            2px  2px 1px #000000,
+            -2px -2px 1px #000000,
+            2px -2px 1px #000000,
+            -2px  2px 1px #000000,
+            2px  2px 1px #000000;
+
+}
+.fixed {
+    table-layout: fixed;
+    width: 1100px;
+    position: absolute;
+    top: 180px;
+    left: 280px;
+    border:  20px solid #d1d2d4;
+    border-radius: 15px;
+    box-shadow: 0 0 4px 4px #244560;
+}
+table.fixed td {
+    padding: 20px;
+}
+table.fixed tr {
+    height: 100px;
+    background-color: #d1d2d4;
+}
+button:active {
+    padding: 0;
+}
+.neutral-button {
+    cursor: pointer;
+    height: 70px;
+    width: 180px;
+    background-color: beige;
+    border: #0a73bb;
+    align-items: center;
+    border-radius: 10px;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: black;
+}
+
+.neutral-button:hover {
+    background: rgba(0,0,0,0);
+    color: #012a4d;
+    box-shadow: inset 0 0 0 3px #3a7999;
+}
+
+.blue {
+    cursor: pointer;
+    height: 70px;
+    width: 180px;
+    background-color: #426d9b;
+    border: #0a73bb;
+    align-items: center;
+    border-radius: 10px;
+}
+.eblue {
+    background-color: #426d9b;
+}
+.green {
+    cursor: pointer;
+    height: 70px;
+    width: 180px;
+    background-color: #4c9c5e;
+    border: #0a73bb;
+    align-items: center;
+    border-radius: 10px;
+}
+.egreen {
+    background-color: #4c9c5e;
+}
+.gray {
+    cursor: pointer;
+    height: 70px;
+    width: 180px;
+    background-color: lightslategray;
+    border: #0a73bb;
+    align-items: center;
+    border-radius: 10px;
+}
+.egray {
+    background-color: lightslategray;
+}
+.black {
+    cursor: pointer;
+    height: 70px;
+    width: 180px;
+    background-color: #333a3f;
+    border: #0a73bb;
+    align-items: center;
+    border-radius: 10px;
+}
+.eblack {
+    background-color: #333a3f;
+}
+
+.blue-name-confirm
+{
+    position: relative;
+    color: #00ffff;
+    font-size: x-large;
+    font-weight: 600;
+    letter-spacing: 5px;
+    text-shadow:
+            -0   -2px 1px #000000,
+            0   -2px 1px #000000,
+            -0    2px 1px #000000,
+            0    2px 1px #000000,
+            -2px -0   1px #000000,
+            2px -0   1px #000000,
+            -2px  0   1px #000000,
+            2px  0   1px #000000,
+            -1px -2px 1px #000000,
+            1px -2px 1px #000000,
+            -1px  2px 1px #000000,
+            1px  2px 1px #000000,
+            -2px -1px 1px #000000,
+            2px -1px 1px #000000,
+            -2px  1px 1px #000000,
+            2px  1px 1px #000000,
+            -2px -2px 1px #000000,
+            2px -2px 1px #000000,
+            -2px  2px 1px #000000,
+            2px  2px 1px #000000,
+            -2px -2px 1px #000000,
+            2px -2px 1px #000000,
+            -2px  2px 1px #000000,
+            2px  2px 1px #000000;
+}
+
+.green-name-confirm
+{
+    color:lawngreen;
+    position: relative;
+    font-size: x-large;
+    font-weight: 600;
+    letter-spacing: 5px;
+    text-shadow:
+            -0   -2px 1px #000000,
+            0   -2px 1px #000000,
+            -0    2px 1px #000000,
+            0    2px 1px #000000,
+            -2px -0   1px #000000,
+            2px -0   1px #000000,
+            -2px  0   1px #000000,
+            2px  0   1px #000000,
+            -1px -2px 1px #000000,
+            1px -2px 1px #000000,
+            -1px  2px 1px #000000,
+            1px  2px 1px #000000,
+            -2px -1px 1px #000000,
+            2px -1px 1px #000000,
+            -2px  1px 1px #000000,
+            2px  1px 1px #000000,
+            -2px -2px 1px #000000,
+            2px -2px 1px #000000,
+            -2px  2px 1px #000000,
+            2px  2px 1px #000000,
+            -2px -2px 1px #000000,
+            2px -2px 1px #000000,
+            -2px  2px 1px #000000,
+            2px  2px 1px #000000;
+}
+
+.team-versus-team {
+    color: white;
+    position: relative;
+    font-size: x-large;
+    font-weight: 600;
+    letter-spacing: 5px;
+    text-shadow:
+            -0   -2px 1px #000000,
+            0   -2px 1px #000000,
+            -0    2px 1px #000000,
+            0    2px 1px #000000,
+            -2px -0   1px #000000,
+            2px -0   1px #000000,
+            -2px  0   1px #000000,
+            2px  0   1px #000000,
+            -1px -2px 1px #000000,
+            1px -2px 1px #000000,
+            -1px  2px 1px #000000,
+            1px  2px 1px #000000,
+            -2px -1px 1px #000000,
+            2px -1px 1px #000000,
+            -2px  1px 1px #000000,
+            2px  1px 1px #000000,
+            -2px -2px 1px #000000,
+            2px -2px 1px #000000,
+            -2px  2px 1px #000000,
+            2px  2px 1px #000000,
+            -2px -2px 1px #000000,
+            2px -2px 1px #000000,
+            -2px  2px 1px #000000,
+            2px  2px 1px #000000;
+}
+.guess-number {
+    text-decoration: none;
+    display: inline-block;
+    color: white;
+    padding: 20px 30px;
+    position: relative;
+    left: 265px;
+    bottom: 12px;
+
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background-image: linear-gradient(to right,
+    #093c61 7%,
+    #788dbf 41%, #012e4a 100%);
+    background-color:
+            #8696aa;
+    background-size: 200% auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .1);
+    transition: .5s;
+    margin-top: 1em;
+}
+
+.guess-number:hover {
+    background-position: right center;
+}
+.non-active-number {
+    text-decoration: none;
+    display: inline-block;
+    color: white;
+    padding: 20px 30px;
+    position: relative;
+    left: 265px;
+    bottom: 12px;
+
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background-image: linear-gradient(to right,
+    #558db4 3%, #dbdad8 61%, #6b7888 100%);
+    background-color: #284d67;
+    background-size: 200% auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .1);
+    transition: .5s;
+    margin-top: 1em;
+}
+
+.green-team-input {
+    position: absolute;
+    bottom: 270px;
+    right: 60px;
+    color: greenyellow;
+    font-size: x-large;
+    font-weight: 600;
+    width:600px;
+    letter-spacing: 5px;
+    backdrop-filter: blur(2px);
+    background-color: transparent;
+    border-color: lawngreen; /* Цвет границы */
+    border-width: 3px 3px 3px 3px;
+    border-style: solid; /* Стиль границы */
+    padding: 5px; /* Поля вокруг текста */
+    text-shadow:
+            -0   -2px 1px #000000,
+            0   -2px 1px #000000,
+            -0    2px 1px #000000,
+            0    2px 1px #000000,
+            -2px -0   1px #000000,
+            2px -0   1px #000000,
+            -2px  0   1px #000000,
+            2px  0   1px #000000,
+            -1px -2px 1px #000000,
+            1px -2px 1px #000000,
+            -1px  2px 1px #000000,
+            1px  2px 1px #000000,
+            -2px -1px 1px #000000,
+            2px -1px 1px #000000,
+            -2px  1px 1px #000000,
+            2px  1px 1px #000000,
+            -2px -2px 1px #000000,
+            2px -2px 1px #000000,
+            -2px  2px 1px #000000,
+            2px  2px 1px #000000,
+            -2px -2px 1px #000000,
+            2px -2px 1px #000000,
+            -2px  2px 1px #000000,
+            2px  2px 1px #000000;
+}
+.blue-team-input {
+    position: absolute;
+    bottom: 100px;
+    right: 60px;
+    color: #00ffff;
+    font-size: x-large;
+    font-weight: 600;
+    letter-spacing: 5px;
+    backdrop-filter: blur(2px);
+    background-color: transparent;
+    border-color:mediumblue;
+    width:600px;
+    border-width: 3px 3px 3px 3px;
+    border-style: solid;
+    padding: 5px;
+    text-shadow:
+            -0   -2px 1px #000000,
+            0   -2px 1px #000000,
+            -0    2px 1px #000000,
+            0    2px 1px #000000,
+            -2px -0   1px #000000,
+            2px -0   1px #000000,
+            -2px  0   1px #000000,
+            2px  0   1px #000000,
+            -1px -2px 1px #000000,
+            1px -2px 1px #000000,
+            -1px  2px 1px #000000,
+            1px  2px 1px #000000,
+            -2px -1px 1px #000000,
+            2px -1px 1px #000000,
+            -2px  1px 1px #000000,
+            2px  1px 1px #000000,
+            -2px -2px 1px #000000,
+            2px -2px 1px #000000,
+            -2px  2px 1px #000000,
+            2px  2px 1px #000000,
+            -2px -2px 1px #000000,
+            2px -2px 1px #000000,
+            -2px  2px 1px #000000,
+            2px  2px 1px #000000;
+}
+
+
+.winner-blue {
+
+    color: #00ffff;
+    font-size: x-large;
+    font-weight: 600;
+    backdrop-filter: blur(2px);
+    background-color: transparent;
+    border-color:#00ffff;
+    width:600px;
+    border-width: 3px 3px 3px 3px;
+    border-style: solid;
+    padding: 72px;
+    letter-spacing: 5px;
+    text-shadow:
+            -0   -2px 1px #000000,
+            0   -2px 1px #000000,
+            -0    2px 1px #000000,
+            0    2px 1px #000000,
+            -2px -0   1px #000000,
+            2px -0   1px #000000,
+            -2px  0   1px #000000,
+            2px  0   1px #000000,
+            -1px -2px 1px #000000,
+            1px -2px 1px #000000,
+            -1px  2px 1px #000000,
+            1px  2px 1px #000000,
+            -2px -1px 1px #000000,
+            2px -1px 1px #000000,
+            -2px  1px 1px #000000,
+            2px  1px 1px #000000,
+            -2px -2px 1px #000000,
+            2px -2px 1px #000000,
+            -2px  2px 1px #000000,
+            2px  2px 1px #000000,
+            -2px -2px 1px #000000,
+            2px -2px 1px #000000,
+            -2px  2px 1px #000000,
+            2px  2px 1px #000000;
+}
+
+.winner-green {
+
+    color: greenyellow;
+    font-size: x-large;
+    font-weight: 600;
+    backdrop-filter: blur(2px);
+    background-color: transparent;
+    border-color:lawngreen;
+    width:600px;
+    border-width: 3px 3px 3px 3px;
+    border-style: solid; /* Стиль границы */
+    padding: 72px; /* Поля вокруг текста */
+    letter-spacing: 5px;
+    text-shadow:
+            -0   -2px 1px #000000,
+            0   -2px 1px #000000,
+            -0    2px 1px #000000,
+            0    2px 1px #000000,
+            -2px -0   1px #000000,
+            2px -0   1px #000000,
+            -2px  0   1px #000000,
+            2px  0   1px #000000,
+            -1px -2px 1px #000000,
+            1px -2px 1px #000000,
+            -1px  2px 1px #000000,
+            1px  2px 1px #000000,
+            -2px -1px 1px #000000,
+            2px -1px 1px #000000,
+            -2px  1px 1px #000000,
+            2px  1px 1px #000000,
+            -2px -2px 1px #000000,
+            2px -2px 1px #000000,
+            -2px  2px 1px #000000,
+            2px  2px 1px #000000,
+            -2px -2px 1px #000000,
+            2px -2px 1px #000000,
+            -2px  2px 1px #000000,
+            2px  2px 1px #000000;
+}
+
+.title-green {
+    color: greenyellow;
+    position:absolute;
+    bottom: 330px;
+}
+.title-blue {
+    color: #00ffff;
+    position:absolute;
+    bottom: 160px;
+}
+.swal2-validation-message::before {
+    visibility: hidden;
+    position:absolute;
+    top:10px;
+}
+
+.minHeight {
+    min-height: 600px;
+}
+.swal2-validation-message {
+    background: transparent;
+    color: yellow;
+    border:3px;
+    font-family: "Gill Sans", sans-serif;
+    font-style: italic;
+    font-size: large;
+    font-weight: 400;
+    letter-spacing: 2px;
+    position:absolute;
+    top:200px;
+}
+
+.swal2-inputerror {
+    border-color: red !important;
+}
+
+.swal2-title{
+    background-color: transparent;
+    display:none;
+
+}
+.swal2-image{
+    border-radius: 10px;
+    border: 3px solid #fff;
+}
+
+.swal2-actions
+{
+    position:absolute;
+    left: 160px;
+    top:300px;
+}
+.swal2-confirm.position{
+    position: absolute;
+    top: 1150px;
+    left: 320px;
+}
+.align-left {
+    text-align: left;
+}

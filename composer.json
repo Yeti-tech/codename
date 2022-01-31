@@ -19,8 +19,10 @@
         "yiisoft/yii2-bootstrap4": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
       "ext-json": "*",
-        "sweetalert2.all.min.js"
+        "bizley/migration": "^4.3",
+        "ramsey/uuid": "^4.2"
     },
+
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
         "yiisoft/yii2-gii": "~2.2.0",
@@ -31,10 +33,7 @@
         "symfony/browser-kit": ">=2.7 <=4.2.4",
         "codeception/module-filesystem": "^1.0.0",
         "codeception/module-yii2": "^1.0.0",
-        "codeception/module-asserts": "^1.0.0",
-        "bower-asset/bootstrap": "^3.3",
-        "npm-asset/jquery": "^2.2",
-        "aryelds/yii2-sweet-alert": "@dev"
+        "codeception/module-asserts": "^1.0.0"
     },
     "config": {
         "process-timeout": 1800,

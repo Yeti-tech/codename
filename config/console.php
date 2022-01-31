@@ -17,6 +17,7 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+
         'log' => [
             'targets' => [
                 [
@@ -35,6 +36,12 @@ $config = [
         ],
     ],
     */
+        'controllerMap' => [
+            'migration' => [
+                'class' => 'bizley\migration\controllers\MigrationController',
+            ],
+        ],
+
 ];
 
 if (YII_ENV_DEV) {

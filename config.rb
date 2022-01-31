@@ -2,7 +2,7 @@ require 'compass/import-once/activate'
 # Require any additional compass plugins here.
 
 # Set this to the root of your project when deployed:
-http_path = "/"
+http_path = "http://codenames.ru.host1704551.serv51.hostland.pro/"
 css_dir = "stylesheets"
 sass_dir = "sass"
 images_dir = "images"
